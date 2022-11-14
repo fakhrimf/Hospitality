@@ -50,4 +50,5 @@
     <string name="bantuan_dan_masukan">Bantuan dan Masukan</string>
     <string name="tentang_aplikasi">Tentang Aplikasi</string>
     <string name="akun">Akun</string>
+    <string name="title_qr">Scan QR</string>
 </resources>
