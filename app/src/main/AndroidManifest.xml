@@ -13,6 +13,13 @@
         android:theme="@style/Theme.Hospitality"
         tools:targetApi="31">
         <activity
+            android:name=".CreateAppointmentActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".MyAccountActivity"
             android:exported="false">
             <meta-data
