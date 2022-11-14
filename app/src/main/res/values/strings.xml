@@ -33,4 +33,21 @@
     <string name="otp_err">OTP tidak masuk?</string>
     <string name="password_baru">Password Baru</string>
     <string name="konfirmasi_password">Konfirmasi Password</string>
+    <string name="appointment_saya">Appointment Saya</string>
+    <string name="username">Username</string>
+    <string name="telephone_placeholder">+62123456789</string>
+    <string name="my_profile">Profil Akun Saya</string>
+    <string name="my_profile_helper">Lihat informasi akun anda</string>
+    <string name="edit_profil">Edit Profil</string>
+    <string name="edit_profil_helper">Kelola akun yang anda simpan</string>
+    <string name="change_password">Ganti Password</string>
+    <string name="change_password_helper">Kelola password akun anda</string>
+    <string name="konfirmasi_akun">Konfirmasi Akun</string>
+    <string name="konfirmasi_akun_helper">Lebih lanjut mengamankan akun anda</string>
+    <string name="log_out">Log Out</string>
+    <string name="logout_helper">Keluar dari akun anda</string>
+    <string name="more">More</string>
+    <string name="bantuan_dan_masukan">Bantuan dan Masukan</string>
+    <string name="tentang_aplikasi">Tentang Aplikasi</string>
+    <string name="akun">Akun</string>
 </resources>
