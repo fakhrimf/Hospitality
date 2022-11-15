@@ -51,4 +51,6 @@
     <string name="tentang_aplikasi">Tentang Aplikasi</string>
     <string name="akun">Akun</string>
     <string name="title_qr">Scan QR</string>
+    <string name="success_appointment">Appointment\nSukses Dibuat</string>
+    <string name="success_payment">Pembayaran\nSukses</string>
 </resources>

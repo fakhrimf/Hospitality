@@ -13,12 +13,20 @@
         android:theme="@style/Theme.Hospitality"
         tools:targetApi="31">
         <activity
-            android:name=".CreateAppointmentActivity"
-            android:exported="false">
+            android:name=".ChatActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <!-- <activity -->
+        <!-- android:name=".CreateAppointmentActivity" -->
+        <!-- android:exported="false"> -->
+        <!-- <meta-data -->
+        <!-- android:name="android.app.lib_name" -->
+        <!-- android:value="" /> -->
+        <!-- </activity> -->
         <activity
             android:name=".MyAccountActivity"
             android:exported="false">
