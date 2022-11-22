@@ -19,7 +19,7 @@
         app:itemIconTint="@color/bottom_nav_color"
         app:menu="@menu/bottom_nav_menu" />
 
-    <androidx.fragment.app.FragmentContainerView
+    <fragment
         android:id="@+id/nav_host_fragment_activity"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
