@@ -51,18 +51,23 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
+        android:layout_marginTop="20dp"
         android:name="com.sixgroup.hospitality.ui.home.PostFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layoutManager="LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5"
         tools:context=".ui.home.PostFragment"
         tools:layout_editor_absoluteX="16dp"
         tools:listitem="@layout/fragment_post" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/fab"
         android:layout_width="84dp"
         android:layout_height="84dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
         android:layout_margin="20dp"
         app:cardBackgroundColor="@color/accent"
         app:cardCornerRadius="1000dp"
