@@ -46,5 +46,4 @@ class ScanQRFragment : Fragment() {
             codeScanner.startPreview()
         }
     }
-
 }
