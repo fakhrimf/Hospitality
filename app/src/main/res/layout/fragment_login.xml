@@ -40,7 +40,7 @@
         android:layout_marginTop="80dp"
         android:layout_marginEnd="20dp"
         android:background="@color/edittext_bg"
-        app:cardCornerRadius="6dp"
+        app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4">
@@ -54,19 +54,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/edittext_bg"
-                android:hint="@string/hint_email"
                 android:paddingStart="54dp"
                 android:textColorHint="@color/white"
                 app:boxBackgroundColor="@color/edittext_bg"
                 app:boxBackgroundMode="filled"
-                app:boxCornerRadiusBottomEnd="10dp"
-                app:boxCornerRadiusBottomStart="10dp"
-                app:boxCornerRadiusTopEnd="10dp"
-                app:boxCornerRadiusTopStart="10dp"
                 app:boxStrokeColor="@color/accent"
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
                 app:counterTextColor="@color/white"
+                app:hintAnimationEnabled="false"
+                app:hintEnabled="false"
                 app:hintTextColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -76,22 +73,24 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/emailInput"
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
+                    android:layout_height="60dp"
                     android:layout_margin="5dp"
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/psansreg"
+                    android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:textColor="@color/white"
                     android:textColorHighlight="@color/accent"
+                    android:textColorHint="@color/white"
                     android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginStart="20dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="17dp"
                 android:src="@drawable/ic_mail"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -108,7 +107,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="20dp"
         android:background="@color/edittext_bg"
-        app:cardCornerRadius="6dp"
+        app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardEmail">
@@ -122,7 +121,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/edittext_bg"
-                android:hint="@string/hint_password"
                 android:paddingStart="54dp"
                 android:textColorHint="@color/white"
                 app:boxBackgroundColor="@color/edittext_bg"
@@ -134,33 +132,37 @@
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
                 app:counterTextColor="@color/white"
+                app:hintAnimationEnabled="false"
+                app:hintEnabled="false"
                 app:hintTextColor="@color/white"
-                app:passwordToggleTint="@color/accent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:passwordToggleEnabled="true">
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/accent">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/passwordInput"
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
+                    android:layout_height="60dp"
                     android:layout_margin="5dp"
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/psansreg"
+                    android:hint="@string/hint_password"
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:textColor="@color/white"
                     android:textColorHighlight="@color/accent"
+                    android:textColorHint="@color/white"
                     android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginStart="20dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="17dp"
                 android:src="@drawable/ic_lock"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -225,12 +227,14 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
 
     <TextView
+        android:id="@+id/registerButton"
         style="@style/TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:padding="10dp"
         android:text="@string/register"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textView6"
         app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toTopOf="@+id/textView6" />
 

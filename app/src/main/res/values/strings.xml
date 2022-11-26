@@ -53,4 +53,12 @@
     <string name="title_qr">Scan QR</string>
     <string name="success_appointment">Appointment\nSukses Dibuat</string>
     <string name="success_payment">Pembayaran\nSukses</string>
+    <string name="email_registered">E-mail sudah diregister sebelumnya</string>
+    <string name="email_error_empty">E-mail tidak boleh kosong</string>
+    <string name="birthdate_error_empty">Tanggal lahir tidak boleh kosong</string>
+    <string name="name_error_empty">Nama tidak boleh kosong</string>
+    <string name="phone_error_empty">Nomor telepon tidak boleh kosong</string>
+    <string name="phone_error_char">Nomor telepon tidak valid</string>
+    <string name="password_error_empty">Password tidak boleh kosong</string>
+    <string name="password_error_lessthaneight">Password harus memiliki 8 karakter atau lebih</string>
 </resources>

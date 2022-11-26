@@ -18,7 +18,8 @@ class PostRecyclerViewAdapter(
     private val values: List<PlaceholderItem>
 ) : RecyclerView.Adapter<PostRecyclerViewAdapter.ViewHolder>() {
 
-    private val linkPlaceholder = "https://cdn.discordapp.com/attachments/838616441951223868/904577420101812274/93615372_p0.png"
+    private val linkPlaceholder = "https://akcdn.detik.net.id/visual/2020/07/07/anime-your-name-2_169.png?w=650"
+    private val linkPlaceholder_ = "https://static.wikia.nocookie.net/supermarioglitchy4/images/9/9b/PewDiePie.png/revision/latest?cb=20210227180256"
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         return ViewHolder(
@@ -38,7 +39,7 @@ class PostRecyclerViewAdapter(
         holder.posttitle.text = item.content
         holder.postdetail.text = item.details
         Picasso.get().load(linkPlaceholder).into(holder.postImage)
-        Picasso.get().load(linkPlaceholder).into(holder.userImage)
+        Picasso.get().load(linkPlaceholder_).into(holder.userImage)
     }
 
     inner class ViewHolder(binding: FragmentPostBinding) : RecyclerView.ViewHolder(binding.root) {
