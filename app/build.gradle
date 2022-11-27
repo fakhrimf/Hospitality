@@ -61,6 +61,9 @@ dependencies {
     //SweetAlert
     implementation 'com.github.f0ris.sweetalert:library:1.5.1'
 
+    //SpinKit
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'

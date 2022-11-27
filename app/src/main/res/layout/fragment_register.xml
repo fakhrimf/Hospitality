@@ -44,10 +44,12 @@
             android:layout_height="wrap_content">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/imageView3"
+                android:id="@+id/userImageRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 app:cardBackgroundColor="@color/gray"
                 app:cardCornerRadius="1000dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -55,18 +57,23 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
+                    android:id="@+id/userDP"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/ic_person" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/userImageRegisterEditBtn"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 app:cardBackgroundColor="@color/accent"
                 app:cardCornerRadius="100dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                app:layout_constraintEnd_toEndOf="@+id/imageView3">
+                app:layout_constraintBottom_toBottomOf="@+id/userImageRegister"
+                app:layout_constraintEnd_toEndOf="@+id/userImageRegister">
 
                 <ImageView
                     android:layout_width="32dp"
@@ -84,7 +91,7 @@
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView3">
+                app:layout_constraintTop_toBottomOf="@+id/userImageRegister">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -268,4 +275,26 @@
                 app:layout_constraintTop_toBottomOf="@+id/cardView5" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/backgroundDark"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:background="@color/black"
+        android:orientation="vertical"
+        android:translationZ="100dp">
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/spin_kit"
+            style="@style/SpinKitView.Large.ThreeBounce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:SpinKit_Color="@color/accent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

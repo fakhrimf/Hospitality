@@ -1,6 +1,7 @@
 package com.sixgroup.hospitality.model
 
 import android.content.Context
+import android.net.Uri
 import android.util.Base64
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
@@ -10,14 +11,13 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.sixgroup.hospitality.R
-import com.sixgroup.hospitality.utils.DB_CHILD_PASIEN
-import com.sixgroup.hospitality.utils.DB_SET_VALUE_SUCCESS
-import com.sixgroup.hospitality.utils.SECRET_IV
-import com.sixgroup.hospitality.utils.SECRET_KEY
+import com.sixgroup.hospitality.utils.*
 import com.sixgroup.hospitality.utils.repository.DatabaseMessageModel
+import com.sixgroup.hospitality.utils.repository.Repository.Companion.decryptCBC
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.getChild
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.getPasienData
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.reference
+import com.sixgroup.hospitality.utils.repository.Repository.Companion.storageReference
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.storePasien
 import java.util.Date
 import javax.crypto.Cipher
@@ -53,9 +53,10 @@ data class PasienModel(
         TODO("Not yet implemented")
     }
 
-    fun registerProfile(context: Context): MutableLiveData<DatabaseMessageModel> {
+    fun registerProfile(context: Context, path: Uri?): MutableLiveData<DatabaseMessageModel> {
         val liveData = MutableLiveData<DatabaseMessageModel>()
         idUser = "${reference.push().key}"
+        val ref = storageReference.child(STORAGE_IMAGES).child(idUser!!)
         getChild(DB_CHILD_PASIEN).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 liveData.value = DatabaseMessageModel(false, p0.message)
@@ -73,29 +74,43 @@ data class PasienModel(
                         break
                     }
                 }
-
                 if (!dupe) {
-                    getChild(DB_CHILD_PASIEN).child(idUser!!).setValue(this@PasienModel) { error, _ ->
-                        if (error != null) {
-                            liveData.value = DatabaseMessageModel(false, error.message)
-                        } else {
-                            liveData.value = DatabaseMessageModel(true, DB_SET_VALUE_SUCCESS)
-                            storePasien(context, this@PasienModel)
+                    if (path != null) {
+                        ref.putFile(path).apply {
+                            addOnSuccessListener {
+                                ref.downloadUrl.apply {
+                                    addOnSuccessListener {
+                                        foto = it.toString()
+                                        liveData.value = DatabaseMessageModel(true, DB_SET_VALUE_SUCCESS)
+                                        storePasien(context, this@PasienModel)
+                                        getChild(DB_CHILD_PASIEN).child(idUser!!).setValue(this@PasienModel) { error, _ ->
+                                            if (error != null) {
+                                                liveData.value = DatabaseMessageModel(false, error.message)
+                                            }
+                                        }
+                                    }
+                                    addOnFailureListener {
+                                        liveData.value = DatabaseMessageModel(false, "${it.message}")
+                                    }
+                                }
+                            }
+                            addOnFailureListener {
+                                liveData.value = DatabaseMessageModel(false, "${it.message}")
+                            }
+                        }
+                    } else {
+                        getChild(DB_CHILD_PASIEN).child(idUser!!).setValue(this@PasienModel) { error, _ ->
+                            if (error != null) {
+                                liveData.value = DatabaseMessageModel(false, error.message)
+                            } else {
+                                liveData.value = DatabaseMessageModel(true, DB_SET_VALUE_SUCCESS)
+                                storePasien(context, this@PasienModel)
+                            }
                         }
                     }
                 }
             }
         })
         return liveData
-    }
-
-    private fun String.decryptCBC(): String {
-        val decodedByte: ByteArray = Base64.decode(this, Base64.DEFAULT)
-        val iv = IvParameterSpec(SECRET_IV.toByteArray())
-        val keySpec = SecretKeySpec(SECRET_KEY.toByteArray(), "AES")
-        val cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING")
-        cipher.init(Cipher.DECRYPT_MODE, keySpec, iv)
-        val output = cipher.doFinal(decodedByte)
-        return String(output)
     }
 }

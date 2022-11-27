@@ -48,12 +48,16 @@ class LoginFragment : Fragment() {
 
     private fun init() {
         buttonLogin.setOnClickListener {
-            val masuk = getPasienModel().login(requireContext(), this)
+            backgroundDark.alpha = 0.7F
+            buttonLogin.isClickable = false
+            val masuk = getPasienModel().login(requireActivity().applicationContext, this)
             masuk.observeForever {
                 if (it) {
                     startActivity(Intent(requireContext(), HomeActivity::class.java))
                     requireActivity().finish()
                 } else {
+                    backgroundDark.alpha = 0F
+                    buttonLogin.isClickable = true
                     Toast.makeText(requireContext(), "Email atau Password salah", Toast.LENGTH_SHORT).show()
                 }
             }

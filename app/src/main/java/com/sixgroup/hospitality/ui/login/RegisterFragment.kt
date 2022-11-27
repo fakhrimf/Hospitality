@@ -1,21 +1,35 @@
 package com.sixgroup.hospitality.ui.login
 
+import android.Manifest
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.content.Intent
 import android.icu.util.Calendar
+import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.sixgroup.hospitality.HomeActivity
 import com.sixgroup.hospitality.R
 import com.sixgroup.hospitality.model.PasienModel
+import com.sixgroup.hospitality.utils.CAMERA_REQUEST_CODE
+import com.sixgroup.hospitality.utils.IMAGE_REQUEST_CODE
 import com.sixgroup.hospitality.utils.SECRET_IV
 import com.sixgroup.hospitality.utils.SECRET_KEY
+import com.sixgroup.hospitality.utils.repository.Repository.Companion.encryptCBC
+import com.sixgroup.hospitality.utils.repository.Repository.Companion.getImageBitmap
+import com.sixgroup.hospitality.utils.repository.Repository.Companion.getImageIntent
 import kotlinx.android.synthetic.main.fragment_register.*
+import kotlinx.android.synthetic.main.fragment_register.backgroundDark
+import kotlinx.android.synthetic.main.fragment_register.emailInput
+import kotlinx.android.synthetic.main.fragment_register.passwordInput
+import kotlinx.android.synthetic.main.fragment_register.registerButton
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.crypto.Cipher
@@ -24,7 +38,7 @@ import javax.crypto.spec.SecretKeySpec
 
 
 class RegisterFragment : Fragment() {
-
+    var path: Uri? = null
     companion object {
         fun newInstance() = RegisterFragment()
     }
@@ -34,7 +48,7 @@ class RegisterFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
+        viewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
         // TODO: Use the ViewModel
     }
 
@@ -48,6 +62,15 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == IMAGE_REQUEST_CODE && data != null && data.data != null) {
+            path = data.data!!
+            val bitmap = getImageBitmap(requireActivity().contentResolver, path!!)
+            userDP.setImageBitmap(bitmap)
+        }
     }
 
     private fun init() {
@@ -73,17 +96,32 @@ class RegisterFragment : Fragment() {
         }
         registerButton.setOnClickListener {
             val check = isEmpty()
+            backgroundDark.alpha = 0.7F
+            registerButton.isClickable = false
             if (!check) {
-//                Toast.makeText(requireContext(), "Proceed Register", Toast.LENGTH_SHORT).show()
-                val message = getPasienModel().registerProfile(requireContext())
+                val message = getPasienModel().registerProfile(requireContext(), path)
                 message.observeForever {
                     if (it.success) {
-                        Toast.makeText(requireContext(), "Success Register", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(requireContext(), HomeActivity::class.java))
+                        requireActivity().finish()
                     } else {
+                        backgroundDark.alpha = 0F
+                        registerButton.isClickable = true
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                     }
                 }
+            } else {
+                backgroundDark.alpha = 0F
+                registerButton.isClickable = true
             }
+        }
+        userImageRegister.setOnClickListener {
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA), CAMERA_REQUEST_CODE)
+            startActivityForResult(getImageIntent(), IMAGE_REQUEST_CODE)
+        }
+        userImageRegisterEditBtn.setOnClickListener {
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA), CAMERA_REQUEST_CODE)
+            startActivityForResult(getImageIntent(), IMAGE_REQUEST_CODE)
         }
     }
 
@@ -126,31 +164,11 @@ class RegisterFragment : Fragment() {
         return PasienModel(
             nama = nameInput.text.toString().encryptCBC(),
             noHP = phoneInput.text.toString().encryptCBC(),
-            tglLahir = myCalendar.time.toString().encryptCBC(),
+            tglLahir = birthInput.text.toString().encryptCBC(),
             idUser = "",
             password = passwordInput.text.toString().encryptCBC(),
             email = emailInput.text.toString().encryptCBC(),
             foto = "",
         )
-    }
-
-    private fun String.encryptCBC(): String {
-        val iv = IvParameterSpec(SECRET_IV.toByteArray())
-        val keySpec = SecretKeySpec(SECRET_KEY.toByteArray(), "AES")
-        val cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING")
-        cipher.init(Cipher.ENCRYPT_MODE, keySpec, iv)
-        val crypted = cipher.doFinal(this.toByteArray())
-        val encodedByte = Base64.encode(crypted, Base64.DEFAULT)
-        return String(encodedByte)
-    }
-
-    private fun String.decryptCBC(): String {
-        val decodedByte: ByteArray = Base64.decode(this, Base64.DEFAULT)
-        val iv = IvParameterSpec(SECRET_IV.toByteArray())
-        val keySpec = SecretKeySpec(SECRET_KEY.toByteArray(), "AES")
-        val cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING")
-        cipher.init(Cipher.DECRYPT_MODE, keySpec, iv)
-        val output = cipher.doFinal(decodedByte)
-        return String(output)
     }
 }
