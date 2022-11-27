@@ -40,12 +40,18 @@ class MyAccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         init()
     }
 
     private fun init() {
         if (model != null) {
-            if (model!!.foto!!.isNotEmpty()) Picasso.get().load(model!!.foto!!).into(userDP)
+            val picasso = Picasso.get()
+            picasso.setIndicatorsEnabled(true)
+            if (model!!.foto!!.isNotEmpty()) picasso.load(model!!.foto!!).into(userDP)
             if (model!!.nama!!.isNotEmpty()) namaUser.text = model!!.nama!!.decryptCBC()
             if (model!!.noHP!!.isNotEmpty()) hpUser.text = model!!.noHP!!.decryptCBC()
         }

@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import com.sixgroup.hospitality.HomeActivity
 import com.sixgroup.hospitality.LoginActivity
 import com.sixgroup.hospitality.R
@@ -30,6 +32,10 @@ class SplashFragment : Fragment() {
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        val w = requireActivity().window
+        w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        w.statusBarColor = ContextCompat.getColor(requireActivity(), android.R.color.transparent)
         splash()
     }
 

@@ -16,6 +16,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.gson.Gson
+import com.sixgroup.hospitality.model.AdminModel
+import com.sixgroup.hospitality.model.DokterModel
 import com.sixgroup.hospitality.model.PasienModel
 import com.sixgroup.hospitality.utils.*
 import javax.crypto.Cipher
@@ -31,17 +33,41 @@ class Repository {
         val storageReference = storage.reference
         fun getChild(child: String) = reference.child(child)
         private fun getSharedPreferences(context: Context): SharedPreferences? =
-            context.getSharedPreferences(PASIEN_SHARED_PREFERENCE,
+            context.getSharedPreferences(APP_SHARED_PREFERENCE,
             Context.MODE_PRIVATE
         )
         fun storePasien(context: Context, pasienModel: PasienModel) {
-            val sharedPref = context.getSharedPreferences(PASIEN_SHARED_PREFERENCE,
+            val sharedPref = context.getSharedPreferences(APP_SHARED_PREFERENCE,
                 Context.MODE_PRIVATE
             )
             val editor = sharedPref.edit()
             val gson = Gson()
             val json = gson.toJson(pasienModel) as String
-            editor.putString(USER_SHARED_PREFERENCE, json)
+            editor.putString(PASIEN_SHARED_PREFERENCE, json)
+            editor.apply()
+            Log.d("PROFILE", json)
+            getCurrentUser(context)
+        }
+        fun storeDokter(context: Context, dokterModel: DokterModel) {
+            val sharedPref = context.getSharedPreferences(APP_SHARED_PREFERENCE,
+                Context.MODE_PRIVATE
+            )
+            val editor = sharedPref.edit()
+            val gson = Gson()
+            val json = gson.toJson(dokterModel) as String
+            editor.putString(DOKTER_SHARED_PREFERENCE, json)
+            editor.apply()
+            Log.d("PROFILE", json)
+            getCurrentUser(context)
+        }
+        fun storeAdmin(context: Context, adminModel: AdminModel) {
+            val sharedPref = context.getSharedPreferences(APP_SHARED_PREFERENCE,
+                Context.MODE_PRIVATE
+            )
+            val editor = sharedPref.edit()
+            val gson = Gson()
+            val json = gson.toJson(adminModel) as String
+            editor.putString(ADMIN_SHARED_PREFERENCE, json)
             editor.apply()
             Log.d("PROFILE", json)
             getCurrentUser(context)
@@ -68,10 +94,54 @@ class Repository {
             })
             return liveData
         }
+        fun getDokterData(): MutableLiveData<ArrayList<DokterModel>> {
+            val liveData = MutableLiveData<ArrayList<DokterModel>>()
+            val list = ArrayList<DokterModel>()
+
+            getChild(DB_CHILD_DOKTER).addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    throw Throwable(p0.message)
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    list.clear()
+                    for (data in p0.children) {
+                        val model = data.getValue(DokterModel::class.java)
+                        model?.let {
+                            list.add(model)
+                        }
+                    }
+                    liveData.value = list
+                }
+            })
+            return liveData
+        }
+        fun getAdminData(): MutableLiveData<ArrayList<AdminModel>> {
+            val liveData = MutableLiveData<ArrayList<AdminModel>>()
+            val list = ArrayList<AdminModel>()
+
+            getChild(DB_CHILD_ADMIN).addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    throw Throwable(p0.message)
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    list.clear()
+                    for (data in p0.children) {
+                        val model = data.getValue(AdminModel::class.java)
+                        model?.let {
+                            list.add(model)
+                        }
+                    }
+                    liveData.value = list
+                }
+            })
+            return liveData
+        }
         fun getCurrentUser(context: Context): PasienModel? {
             val gson = Gson()
-            val profileJson = context.getSharedPreferences(PASIEN_SHARED_PREFERENCE,
-                Context.MODE_PRIVATE).getString(USER_SHARED_PREFERENCE, null)
+            val profileJson = context.getSharedPreferences(APP_SHARED_PREFERENCE,
+                Context.MODE_PRIVATE).getString(PASIEN_SHARED_PREFERENCE, null)
             if (profileJson != null) Log.d("PROFILEGET", profileJson)
             else Log.d("PROFILEGET", "KOSONG")
             return if (profileJson != null) gson.fromJson(profileJson, PasienModel::class.java)

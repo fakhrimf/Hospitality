@@ -54,6 +54,8 @@ dependencies {
     // Image Utilities
     implementation 'com.squareup.picasso:picasso:2.8'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
+    implementation 'com.squareup.okhttp:okhttp:2.7.5'
+    implementation 'com.squareup.okhttp:okhttp-urlconnection:2.7.5'
 
     // GSON
     implementation 'com.google.code.gson:gson:2.8.6'

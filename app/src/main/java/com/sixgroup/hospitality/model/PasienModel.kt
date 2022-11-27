@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.util.Base64
 import android.util.Log
+import androidx.core.net.toUri
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -34,7 +35,7 @@ data class PasienModel(
     override var foto: String? = "",
 ) : UserModel() {
 
-    override fun login(context: Context, lifecycleOwner: LifecycleOwner) : MutableLiveData<Boolean> {
+    override fun login(context: Context, lifecycleOwner: LifecycleOwner): MutableLiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         var check = false
         getPasienData().observe(lifecycleOwner, Observer<ArrayList<PasienModel>> {
@@ -81,16 +82,20 @@ data class PasienModel(
                                 ref.downloadUrl.apply {
                                     addOnSuccessListener {
                                         foto = it.toString()
-                                        liveData.value = DatabaseMessageModel(true, DB_SET_VALUE_SUCCESS)
+                                        liveData.value =
+                                            DatabaseMessageModel(true, DB_SET_VALUE_SUCCESS)
                                         storePasien(context, this@PasienModel)
-                                        getChild(DB_CHILD_PASIEN).child(idUser!!).setValue(this@PasienModel) { error, _ ->
-                                            if (error != null) {
-                                                liveData.value = DatabaseMessageModel(false, error.message)
+                                        getChild(DB_CHILD_PASIEN).child(idUser!!)
+                                            .setValue(this@PasienModel) { error, _ ->
+                                                if (error != null) {
+                                                    liveData.value =
+                                                        DatabaseMessageModel(false, error.message)
+                                                }
                                             }
-                                        }
                                     }
                                     addOnFailureListener {
-                                        liveData.value = DatabaseMessageModel(false, "${it.message}")
+                                        liveData.value =
+                                            DatabaseMessageModel(false, "${it.message}")
                                     }
                                 }
                             }
@@ -99,7 +104,75 @@ data class PasienModel(
                             }
                         }
                     } else {
-                        getChild(DB_CHILD_PASIEN).child(idUser!!).setValue(this@PasienModel) { error, _ ->
+                        getChild(DB_CHILD_PASIEN).child(idUser!!)
+                            .setValue(this@PasienModel) { error, _ ->
+                                if (error != null) {
+                                    liveData.value = DatabaseMessageModel(false, error.message)
+                                } else {
+                                    liveData.value =
+                                        DatabaseMessageModel(true, DB_SET_VALUE_SUCCESS)
+                                    storePasien(context, this@PasienModel)
+                                }
+                            }
+                    }
+                }
+            }
+        })
+        return liveData
+    }
+
+    fun editProfile(
+        nama: String? = this.nama,
+        noHP: String? = this.noHP,
+        tglLahir: String? = this.tglLahir,
+        password: String? = this.password,
+        email: String? = this.email,
+        foto: String? = this.foto,
+        path: Uri? = null,
+        context: Context,
+    ): MutableLiveData<DatabaseMessageModel> {
+        this.nama = nama
+        this.noHP = noHP
+        this.tglLahir = tglLahir
+        this.password = password
+        this.email = email
+        this.foto = foto
+        val ref = storageReference.child(STORAGE_IMAGES).child(idUser!!)
+        val liveData = MutableLiveData<DatabaseMessageModel>()
+        getChild(DB_CHILD_PASIEN).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                liveData.value = DatabaseMessageModel(false, p0.message)
+            }
+            override fun onDataChange(p0: DataSnapshot) {
+                if (path != null) {
+                    ref.putFile(path).apply {
+                        addOnSuccessListener {
+                            ref.downloadUrl.apply {
+                                addOnSuccessListener {
+                                    this@PasienModel.foto = it.toString()
+                                    liveData.value =
+                                        DatabaseMessageModel(true, DB_SET_VALUE_SUCCESS)
+                                    storePasien(context, this@PasienModel)
+                                    getChild(DB_CHILD_PASIEN).child(idUser!!)
+                                        .setValue(this@PasienModel) { error, _ ->
+                                            if (error != null) {
+                                                liveData.value =
+                                                    DatabaseMessageModel(false, error.message)
+                                            }
+                                        }
+                                }
+                                addOnFailureListener {
+                                    liveData.value = DatabaseMessageModel(false, "${it.message}")
+                                }
+                            }
+                        }
+                        addOnFailureListener {
+                            liveData.value = DatabaseMessageModel(false, "${it.message}")
+                        }
+                    }
+                } else {
+                    getChild(DB_CHILD_PASIEN).child(idUser!!)
+                        .setValue(this@PasienModel) { error, _ ->
                             if (error != null) {
                                 liveData.value = DatabaseMessageModel(false, error.message)
                             } else {
@@ -107,10 +180,10 @@ data class PasienModel(
                                 storePasien(context, this@PasienModel)
                             }
                         }
-                    }
                 }
             }
         })
         return liveData
     }
+
 }
