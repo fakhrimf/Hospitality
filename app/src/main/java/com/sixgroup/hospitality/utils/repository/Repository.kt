@@ -32,10 +32,6 @@ class Repository {
         val reference = database.reference
         val storageReference = storage.reference
         fun getChild(child: String) = reference.child(child)
-        private fun getSharedPreferences(context: Context): SharedPreferences? =
-            context.getSharedPreferences(APP_SHARED_PREFERENCE,
-            Context.MODE_PRIVATE
-        )
         fun storePasien(context: Context, pasienModel: PasienModel) {
             val sharedPref = context.getSharedPreferences(APP_SHARED_PREFERENCE,
                 Context.MODE_PRIVATE
@@ -45,8 +41,23 @@ class Repository {
             val json = gson.toJson(pasienModel) as String
             editor.putString(PASIEN_SHARED_PREFERENCE, json)
             editor.apply()
-            Log.d("PROFILE", json)
-            getCurrentUser(context)
+        }
+        fun rememberMePasien(context: Context, pasienModel: PasienModel) {
+            val sharedPref = context.getSharedPreferences(APP_SHARED_PREFERENCE,
+                Context.MODE_PRIVATE
+            )
+            val editor = sharedPref.edit()
+            val gson = Gson()
+            val json = gson.toJson(pasienModel) as String
+            editor.putString(PASIEN_RM_SHARED_PREFERENCE, json)
+            editor.apply()
+        }
+        fun getRememberMe(context: Context): PasienModel? {
+            val gson = Gson()
+            val profileJson = context.getSharedPreferences(APP_SHARED_PREFERENCE,
+                Context.MODE_PRIVATE).getString(PASIEN_RM_SHARED_PREFERENCE, null)
+            return if (profileJson != null) gson.fromJson(profileJson, PasienModel::class.java)
+            else null
         }
         fun storeDokter(context: Context, dokterModel: DokterModel) {
             val sharedPref = context.getSharedPreferences(APP_SHARED_PREFERENCE,
@@ -142,8 +153,6 @@ class Repository {
             val gson = Gson()
             val profileJson = context.getSharedPreferences(APP_SHARED_PREFERENCE,
                 Context.MODE_PRIVATE).getString(PASIEN_SHARED_PREFERENCE, null)
-            if (profileJson != null) Log.d("PROFILEGET", profileJson)
-            else Log.d("PROFILEGET", "KOSONG")
             return if (profileJson != null) gson.fromJson(profileJson, PasienModel::class.java)
             else null
         }

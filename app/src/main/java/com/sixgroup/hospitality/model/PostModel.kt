@@ -10,4 +10,6 @@ data class PostModel(
     private val header: String,
     private val subHeader: String,
     private val uploader: AdminModel
-)
+) {
+    // getter dan setter sudah dari property access kotlin
+}

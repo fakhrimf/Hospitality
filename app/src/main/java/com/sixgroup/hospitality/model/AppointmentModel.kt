@@ -9,4 +9,6 @@ data class AppointmentModel(
     private val status: String,
     private val dokter: DokterModel,
     private val pasien: PasienModel
-)
+) {
+    // getter dan setter sudah via property access kotlin
+}

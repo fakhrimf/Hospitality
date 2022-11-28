@@ -29,7 +29,11 @@ data class DokterModel(
     override var password: String? = "",
 ) : UserModel() {
 
-    override fun login(context: Context, lifecycleOwner: LifecycleOwner) : MutableLiveData<Boolean> {
+    override fun login(
+        context: Context,
+        lifecycleOwner: LifecycleOwner,
+        remember: Boolean
+    ): MutableLiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         var check = false
         Repository.getDokterData().observe(lifecycleOwner, Observer<ArrayList<DokterModel>> {
@@ -48,63 +52,68 @@ data class DokterModel(
         val liveData = MutableLiveData<DatabaseMessageModel>()
         idUser = "${Repository.reference.push().key}"
         val ref = Repository.storageReference.child(STORAGE_IMAGES).child(idUser!!)
-        getChild(DB_CHILD_DOKTER)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-                liveData.value = DatabaseMessageModel(false, p0.message)
-            }
-
-            override fun onDataChange(p0: DataSnapshot) {
-                var dupe = false
-                for (i in p0.children) {
-                    val model = i.getValue(PasienModel::class.java)
-                    if (model?.email == email) {
-                        dupe = true
-                        liveData.value = DatabaseMessageModel(
-                            false, context.getString(R.string.email_registered)
-                        )
-                        break
-                    }
+        getChild(DB_CHILD_DOKTER).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    liveData.value = DatabaseMessageModel(false, p0.message)
                 }
-                if (!dupe) {
-                    if (path != null) {
-                        ref.putFile(path).apply {
-                            addOnSuccessListener {
-                                ref.downloadUrl.apply {
-                                    addOnSuccessListener {
-                                        foto = it.toString()
-                                        liveData.value = DatabaseMessageModel(true, DB_SET_VALUE_SUCCESS)
-                                        storeDokter(context, this@DokterModel)
-                                        getChild(DB_CHILD_PASIEN)
-                                            .child(idUser!!).setValue(this@DokterModel) { error, _ ->
-                                            if (error != null) {
-                                                liveData.value = DatabaseMessageModel(false, error.message)
-                                            }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    var dupe = false
+                    for (i in p0.children) {
+                        val model = i.getValue(PasienModel::class.java)
+                        if (model?.email == email) {
+                            dupe = true
+                            liveData.value = DatabaseMessageModel(
+                                false, context.getString(R.string.email_registered)
+                            )
+                            break
+                        }
+                    }
+                    if (!dupe) {
+                        if (path != null) {
+                            ref.putFile(path).apply {
+                                addOnSuccessListener {
+                                    ref.downloadUrl.apply {
+                                        addOnSuccessListener {
+                                            foto = it.toString()
+                                            liveData.value =
+                                                DatabaseMessageModel(true, DB_SET_VALUE_SUCCESS)
+                                            storeDokter(context, this@DokterModel)
+                                            getChild(DB_CHILD_PASIEN).child(idUser!!)
+                                                .setValue(this@DokterModel) { error, _ ->
+                                                    if (error != null) {
+                                                        liveData.value = DatabaseMessageModel(
+                                                            false,
+                                                            error.message
+                                                        )
+                                                    }
+                                                }
+                                        }
+                                        addOnFailureListener {
+                                            liveData.value =
+                                                DatabaseMessageModel(false, "${it.message}")
                                         }
                                     }
-                                    addOnFailureListener {
-                                        liveData.value = DatabaseMessageModel(false, "${it.message}")
-                                    }
+                                }
+                                addOnFailureListener {
+                                    liveData.value = DatabaseMessageModel(false, "${it.message}")
                                 }
                             }
-                            addOnFailureListener {
-                                liveData.value = DatabaseMessageModel(false, "${it.message}")
-                            }
-                        }
-                    } else {
-                        getChild(DB_CHILD_PASIEN)
-                            .child(idUser!!).setValue(this@DokterModel) { error, _ ->
-                            if (error != null) {
-                                liveData.value = DatabaseMessageModel(false, error.message)
-                            } else {
-                                liveData.value = DatabaseMessageModel(true, DB_SET_VALUE_SUCCESS)
-                                storeDokter(context, this@DokterModel)
-                            }
+                        } else {
+                            getChild(DB_CHILD_PASIEN).child(idUser!!)
+                                .setValue(this@DokterModel) { error, _ ->
+                                    if (error != null) {
+                                        liveData.value = DatabaseMessageModel(false, error.message)
+                                    } else {
+                                        liveData.value =
+                                            DatabaseMessageModel(true, DB_SET_VALUE_SUCCESS)
+                                        storeDokter(context, this@DokterModel)
+                                    }
+                                }
                         }
                     }
                 }
-            }
-        })
+            })
         return liveData
     }
 
@@ -121,7 +130,7 @@ data class DokterModel(
     }
 
     fun editProfil(
-        nama:String = this.nama!!,
+        nama: String = this.nama!!,
         spesialis: String = this.spesialis!!,
         yoe: Int = this.yoe!!,
         email: String = this.email!!,

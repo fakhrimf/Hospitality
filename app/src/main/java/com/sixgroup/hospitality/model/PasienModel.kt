@@ -2,9 +2,6 @@ package com.sixgroup.hospitality.model
 
 import android.content.Context
 import android.net.Uri
-import android.util.Base64
-import android.util.Log
-import androidx.core.net.toUri
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -12,18 +9,17 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.sixgroup.hospitality.R
-import com.sixgroup.hospitality.utils.*
+import com.sixgroup.hospitality.utils.DB_CHILD_PASIEN
+import com.sixgroup.hospitality.utils.DB_SET_VALUE_SUCCESS
+import com.sixgroup.hospitality.utils.STORAGE_IMAGES
 import com.sixgroup.hospitality.utils.repository.DatabaseMessageModel
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.decryptCBC
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.getChild
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.getPasienData
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.reference
+import com.sixgroup.hospitality.utils.repository.Repository.Companion.rememberMePasien
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.storageReference
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.storePasien
-import java.util.Date
-import javax.crypto.Cipher
-import javax.crypto.spec.IvParameterSpec
-import javax.crypto.spec.SecretKeySpec
 
 data class PasienModel(
     var nama: String? = "",
@@ -35,7 +31,7 @@ data class PasienModel(
     override var foto: String? = "",
 ) : UserModel() {
 
-    override fun login(context: Context, lifecycleOwner: LifecycleOwner): MutableLiveData<Boolean> {
+    override fun login(context: Context, lifecycleOwner: LifecycleOwner, remember: Boolean): MutableLiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         var check = false
         getPasienData().observe(lifecycleOwner, Observer<ArrayList<PasienModel>> {
@@ -43,6 +39,7 @@ data class PasienModel(
                 if (email!! == i.email!!.decryptCBC() && password!! == i.password!!.decryptCBC()) {
                     check = true
                     storePasien(context, i)
+                    if (remember) rememberMePasien(context, i)
                 }
             }
             liveData.value = check
@@ -143,6 +140,7 @@ data class PasienModel(
             override fun onCancelled(p0: DatabaseError) {
                 liveData.value = DatabaseMessageModel(false, p0.message)
             }
+
             override fun onDataChange(p0: DataSnapshot) {
                 if (path != null) {
                     ref.putFile(path).apply {

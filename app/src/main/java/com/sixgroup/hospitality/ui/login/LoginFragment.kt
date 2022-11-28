@@ -17,6 +17,8 @@ import com.sixgroup.hospitality.RegisterActivity
 import com.sixgroup.hospitality.model.PasienModel
 import com.sixgroup.hospitality.utils.SECRET_IV
 import com.sixgroup.hospitality.utils.SECRET_KEY
+import com.sixgroup.hospitality.utils.repository.Repository.Companion.getRememberMe
+import com.sixgroup.hospitality.utils.repository.Repository.Companion.rememberMePasien
 import kotlinx.android.synthetic.main.fragment_login.*
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
@@ -33,7 +35,6 @@ class LoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-        // TODO: Use the ViewModel
     }
 
     override fun onCreateView(
@@ -53,10 +54,14 @@ class LoginFragment : Fragment() {
     }
 
     private fun init() {
+        if (getRememberMe(requireContext()) != null) {
+            startActivity(Intent(requireContext(), HomeActivity::class.java))
+            requireActivity().finish()
+        }
         buttonLogin.setOnClickListener {
             backgroundDark.alpha = 0.7F
             buttonLogin.isClickable = false
-            val masuk = getPasienModel().login(requireActivity().applicationContext, this)
+            val masuk = getPasienModel().login(requireActivity().applicationContext, this, checkBox.isChecked)
             masuk.observeForever {
                 if (it) {
                     startActivity(Intent(requireContext(), HomeActivity::class.java))

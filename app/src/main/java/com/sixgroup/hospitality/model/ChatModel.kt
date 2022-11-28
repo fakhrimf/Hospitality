@@ -7,4 +7,6 @@ data class ChatModel(
     private val message: String,
     private val hasEmbed: Boolean,
     private val timestamp: Date
-)
+) {
+    // getter dan setter sudah via property access kotlin
+}

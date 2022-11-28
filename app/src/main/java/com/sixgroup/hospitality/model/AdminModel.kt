@@ -7,7 +7,6 @@ import androidx.lifecycle.Observer
 import com.sixgroup.hospitality.utils.repository.Repository
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.decryptCBC
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.getAdminData
-import com.sixgroup.hospitality.utils.repository.Repository.Companion.getDokterData
 
 data class AdminModel(
     private var nama: String? = "",
@@ -16,7 +15,11 @@ data class AdminModel(
     override var foto: String? = "",
     override var password: String? = ""
 ) : UserModel() {
-    override fun login(context: Context, lifecycleOwner: LifecycleOwner): MutableLiveData<Boolean> {
+    override fun login(
+        context: Context,
+        lifecycleOwner: LifecycleOwner,
+        remember: Boolean
+    ): MutableLiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         var check = false
         getAdminData().observe(lifecycleOwner, Observer<ArrayList<AdminModel>> {

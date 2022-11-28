@@ -6,4 +6,6 @@ data class BillingModel(
     private val idBilling: String,
     private val billDate: Date,
     private val status: String
-)
+) {
+    // getter dan setter sudah via property access kotlin
+}
