@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/create_appointment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".appointment.CreateAppointmentFragment">
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/message"
@@ -16,5 +15,56 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:cardBackgroundColor="@color/accent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/psansreg"
+            android:text="Buat Appointment"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/LogoHospitality"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_hospitality_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBar" />
+<!--TODO: sama gilang-->
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:fontFamily="@font/psansbold"
+        android:text="@string/app_name"
+        android:textColor="@color/accent"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/LogoHospitality"
+        app:layout_constraintStart_toEndOf="@+id/LogoHospitality"
+        app:layout_constraintTop_toTopOf="@+id/LogoHospitality" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="60dp"
+        app:cardBackgroundColor="@color/accent"
+        app:layout_constraintTop_toBottomOf="@id/topBar">
+
+    </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
