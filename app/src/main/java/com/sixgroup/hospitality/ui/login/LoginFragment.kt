@@ -17,6 +17,7 @@ import com.sixgroup.hospitality.RegisterActivity
 import com.sixgroup.hospitality.model.DokterModel
 import com.sixgroup.hospitality.model.PasienModel
 import com.sixgroup.hospitality.utils.APP_SHARED_PREFERENCE
+import com.sixgroup.hospitality.utils.repository.Repository
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.getRememberMe
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.removeDokterSP
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.removePasienSP
@@ -44,6 +45,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Repository.storeOnboard(requireContext(), true)
         val w = requireActivity().window
         w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)

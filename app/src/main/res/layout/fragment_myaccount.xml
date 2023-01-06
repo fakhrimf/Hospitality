@@ -291,57 +291,6 @@
                         app:layout_constraintTop_toTopOf="@+id/linearLayoutgp" />
 
                     <!--                    End of Ganti Password-->
-                    <!--                    Start of Konfirmasi Akun-->
-
-                    <ImageView
-                        android:id="@+id/imageViewka"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_margin="12dp"
-                        android:padding="5dp"
-                        android:src="@drawable/ic_konfirmasi"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/imageViewgp" />
-
-                    <LinearLayout
-                        android:id="@+id/linearLayoutka"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageViewka"
-                        app:layout_constraintEnd_toStartOf="@+id/imageView11"
-                        app:layout_constraintStart_toEndOf="@+id/imageViewka"
-                        app:layout_constraintTop_toTopOf="@+id/imageViewka">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/psansbold"
-                            android:text="@string/konfirmasi_akun"
-                            android:textColor="@color/white" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:alpha="0.5"
-                            android:fontFamily="@font/psansreg"
-                            android:text="@string/konfirmasi_akun_helper"
-                            android:textColor="@color/white"
-                            android:textSize="11sp" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/imageView11"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        android:src="@drawable/ic_forward"
-                        app:layout_constraintBottom_toBottomOf="@+id/linearLayoutka"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/linearLayoutka" />
-                    <!--                    End of Konfirmasi Akun-->
                     <!--                    Start of Log Out-->
                     <ImageView
                         android:id="@+id/imageViewlo"
@@ -352,7 +301,7 @@
                         android:src="@drawable/ic_logout"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/imageViewka" />
+                        app:layout_constraintTop_toBottomOf="@id/imageViewgp" />
 
                     <LinearLayout
                         android:id="@+id/logoutLayout"
@@ -396,112 +345,111 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:text="@string/more"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView9" />
+<!--            <TextView-->
+<!--                android:id="@+id/textView12"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="20dp"-->
+<!--                android:text="@string/more"-->
+<!--                android:textColor="@color/white"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/cardView9" />-->
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardViewmore"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                app:cardBackgroundColor="@color/accent"
-                app:cardCornerRadius="10dp"
-                app:layout_constraintTop_toBottomOf="@+id/textView12"
-                tools:layout_editor_absoluteX="20dp">
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/cardViewmore"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="20dp"-->
+<!--                app:cardBackgroundColor="@color/accent"-->
+<!--                app:cardCornerRadius="10dp"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/textView12"-->
+<!--                tools:layout_editor_absoluteX="20dp">-->
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
 
-                    <!--                    Start of Bantuan dan Masukan -->
-                    <ImageView
-                        android:id="@+id/imageViewbdm"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_margin="12dp"
-                        android:padding="5dp"
-                        android:src="@drawable/ic_help"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+<!--                    &lt;!&ndash;                    Start of Bantuan dan Masukan &ndash;&gt;-->
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imageViewbdm"-->
+<!--                        android:layout_width="32dp"-->
+<!--                        android:layout_height="32dp"-->
+<!--                        android:layout_margin="12dp"-->
+<!--                        android:padding="5dp"-->
+<!--                        android:src="@drawable/ic_help"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
 
-                    <LinearLayout
-                        android:id="@+id/linearLayoutbdm"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageViewbdm"
-                        app:layout_constraintStart_toEndOf="@+id/imageViewbdm"
-                        app:layout_constraintTop_toTopOf="@+id/imageViewbdm">
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/linearLayoutbdm"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="20dp"-->
+<!--                        android:orientation="vertical"-->
+<!--                        app:layout_constraintBottom_toBottomOf="@+id/imageViewbdm"-->
+<!--                        app:layout_constraintStart_toEndOf="@+id/imageViewbdm"-->
+<!--                        app:layout_constraintTop_toTopOf="@+id/imageViewbdm">-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/psansbold"
-                            android:text="@string/bantuan_dan_masukan"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:fontFamily="@font/psansbold"-->
+<!--                            android:text="@string/bantuan_dan_masukan"-->
+<!--                            android:textColor="@color/white" />-->
+<!--                    </LinearLayout>-->
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        android:src="@drawable/ic_forward"
-                        app:layout_constraintBottom_toBottomOf="@+id/linearLayoutbdm"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/linearLayoutbdm" />
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginEnd="20dp"-->
+<!--                        android:src="@drawable/ic_forward"-->
+<!--                        app:layout_constraintBottom_toBottomOf="@+id/linearLayoutbdm"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="@+id/linearLayoutbdm" />-->
 
-                    <!--                    End of Profil Akun Saya-->
-                    <!--                    Start of Tentang Aplikasi-->
+<!--                    &lt;!&ndash;                    End of Profil Akun Saya&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    Start of Tentang Aplikasi&ndash;&gt;-->
 
-                    <!--                    End of Tentang Aplikasi-->
-                    <ImageView
-                        android:id="@+id/imageViewta"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_margin="12dp"
-                        android:padding="5dp"
-                        android:src="@drawable/ic_info"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/imageViewbdm" />
+<!--                    &lt;!&ndash;                    End of Tentang Aplikasi&ndash;&gt;-->
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imageViewta"-->
+<!--                        android:layout_width="32dp"-->
+<!--                        android:layout_height="32dp"-->
+<!--                        android:layout_margin="12dp"-->
+<!--                        android:padding="5dp"-->
+<!--                        android:src="@drawable/ic_info"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/imageViewbdm" />-->
 
-                    <LinearLayout
-                        android:id="@+id/linearLayoutta"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageViewta"
-                        app:layout_constraintStart_toEndOf="@+id/imageViewta"
-                        app:layout_constraintTop_toTopOf="@+id/imageViewta">
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/linearLayoutta"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="20dp"-->
+<!--                        android:orientation="vertical"-->
+<!--                        app:layout_constraintBottom_toBottomOf="@+id/imageViewta"-->
+<!--                        app:layout_constraintStart_toEndOf="@+id/imageViewta"-->
+<!--                        app:layout_constraintTop_toTopOf="@+id/imageViewta">-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/psansbold"
-                            android:text="@string/tentang_aplikasi"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:fontFamily="@font/psansbold"-->
+<!--                            android:text="@string/tentang_aplikasi"-->
+<!--                            android:textColor="@color/white" />-->
+<!--                    </LinearLayout>-->
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        android:src="@drawable/ic_forward"
-                        app:layout_constraintBottom_toBottomOf="@+id/linearLayoutta"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/linearLayoutta" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginEnd="20dp"-->
+<!--                        android:src="@drawable/ic_forward"-->
+<!--                        app:layout_constraintBottom_toBottomOf="@+id/linearLayoutta"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="@+id/linearLayoutta" />-->
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--            </androidx.cardview.widget.CardView>-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

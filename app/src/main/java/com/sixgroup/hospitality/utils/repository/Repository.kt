@@ -3,7 +3,6 @@ package com.sixgroup.hospitality.utils.repository
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
@@ -83,6 +82,15 @@ class Repository {
             editor.putString(DOKTER_SHARED_PREFERENCE, json)
             editor.apply()
             Log.d("PROFILE", json)
+            getCurrentUser(context)
+        }
+        fun storeOnboard(context: Context, boolean: Boolean) {
+            val sharedPref = context.getSharedPreferences(APP_SHARED_PREFERENCE,
+                Context.MODE_PRIVATE
+            )
+            val editor = sharedPref.edit()
+            editor.putBoolean(ONBOARD_SHARED_PREFERENCE, boolean)
+            editor.apply()
             getCurrentUser(context)
         }
         fun storeAdmin(context: Context, adminModel: AdminModel) {
@@ -176,6 +184,13 @@ class Repository {
                 Context.MODE_PRIVATE).getString(DOKTER_SHARED_PREFERENCE, null)
             return if (profileJson != null) gson.fromJson(profileJson, DokterModel::class.java)
             else null
+        }
+        fun getOnboard(context: Context): Boolean? {
+            val gson = Gson()
+            return context.getSharedPreferences(
+                APP_SHARED_PREFERENCE,
+                Context.MODE_PRIVATE
+            ).getBoolean(ONBOARD_SHARED_PREFERENCE, false)
         }
         fun getImageIntent(): Intent {
             val intent = Intent()

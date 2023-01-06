@@ -77,10 +77,8 @@
                 android:id="@+id/keluhanInput"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
+                android:inputType="text"
                 android:background="@android:color/transparent"
-                android:clickable="false"
-                android:cursorVisible="false"
-                android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:fontFamily="@font/psansreg"
                 android:textColor="@color/white" />
@@ -116,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="15dp"
-            android:spinnerMode="dropdown"></Spinner>
+            android:spinnerMode="dropdown"/>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -148,7 +146,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="15dp"
-            android:spinnerMode="dropdown"></Spinner>
+            android:spinnerMode="dropdown"/>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -160,7 +158,6 @@
         android:layout_marginEnd="20dp"
         android:padding="20dp"
         app:cardBackgroundColor="@color/accent"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView3">
@@ -170,7 +167,7 @@
             android:layout_height="wrap_content"
             android:text="2049"
             android:layout_marginStart="42dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:textColor="@color/white"/>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -187,7 +184,7 @@
                 android:id="@+id/tanggalInput"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:textSize="35dp"
+                android:textSize="35sp"
                 android:background="@android:color/transparent"
                 android:clickable="false"
                 android:cursorVisible="false"
@@ -231,7 +228,7 @@
                 android:id="@+id/jamInput"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:textSize="35dp"
+                android:textSize="35sp"
                 android:background="@android:color/transparent"
                 android:clickable="false"
                 android:cursorVisible="false"
@@ -256,6 +253,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView5" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,4 +29,11 @@ class OnboardMainFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_onboard_main, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val onboardFragment = OnboardFragment()
+        val ft = requireActivity().supportFragmentManager.beginTransaction()
+        ft.replace(R.id.onboard_main, onboardFragment)
+        ft.commit()
+    }
 }

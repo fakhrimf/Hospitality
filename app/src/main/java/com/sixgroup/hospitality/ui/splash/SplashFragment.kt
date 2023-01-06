@@ -14,8 +14,11 @@ import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import com.sixgroup.hospitality.HomeActivity
 import com.sixgroup.hospitality.LoginActivity
+import com.sixgroup.hospitality.OnboardActivity
 import com.sixgroup.hospitality.R
 import com.sixgroup.hospitality.utils.backgroundFadeInDuration
+import com.sixgroup.hospitality.utils.repository.Repository
+import com.sixgroup.hospitality.utils.repository.Repository.Companion.storeOnboard
 import com.sixgroup.hospitality.utils.titleFadeInDuration
 import kotlinx.android.synthetic.main.fragment_splash.*
 
@@ -25,8 +28,8 @@ class SplashFragment : Fragment() {
         fun newInstance() = SplashFragment()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private val model by lazy {
+        Repository.getOnboard(requireActivity())
     }
 
     @Deprecated("Deprecated in Java")
@@ -40,8 +43,13 @@ class SplashFragment : Fragment() {
     }
 
     private val mRunnable = Runnable {
-        startActivity(Intent(requireContext(), LoginActivity::class.java))
-        requireActivity().finish()
+        if (model == false) {
+            startActivity(Intent(requireContext(), OnboardActivity::class.java))
+            requireActivity().finish()
+        } else {
+            startActivity(Intent(requireContext(), LoginActivity::class.java))
+            requireActivity().finish()
+        }
     }
     private val mHandler = Handler(Looper.getMainLooper())
 
