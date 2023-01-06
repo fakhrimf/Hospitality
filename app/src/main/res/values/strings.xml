@@ -47,6 +47,7 @@
     <string name="log_out">Log Out</string>
     <string name="logout_helper">Keluar dari akun anda</string>
     <string name="more">More</string>
+    <string name="keluhan">Masukkan Keluhan Anda</string>
     <string name="bantuan_dan_masukan">Bantuan dan Masukan</string>
     <string name="tentang_aplikasi">Tentang Aplikasi</string>
     <string name="akun">Akun</string>
@@ -63,6 +64,38 @@
     <string name="phone_error_char">Nomor telepon tidak valid</string>
     <string name="password_error_empty">Password tidak boleh kosong</string>
     <string name="password_error_lessthaneight">Password harus memiliki 8 karakter atau lebih</string>
+    <string name="pilih_Dokter_Spesialis">Pilih Jenis Dokter Spesialis</string>
+    <string name="hari_bulan_tgl">Fri, Apr 13</string>
+    <string name="waktu_Appointment">Waktu Appointment</string>
+    <string name="jam">07 : 00</string>
+    <string name="pembayaran">Pembayaran</string>
+    <string name="nama_Dokter">Dokter Ammer Fath SKG</string>
+    <string name="total_Biaya">Total Biaya</string>
+    <string name="biaya">Rp. 543.000,00-</string>
+    <string name="opsi_Pembayaran">Bayar Menggunakan</string>
+    <string name="dana">Dana</string>
+    <string name="gopay">Gopay</string>
+    <string name="link_Aja">Link Aja!</string>
+    <string name="debit">Debit</string>
+    <string name="nama_Akun">Jaki Patarai</string>
+    <string name="email_Akun">Jakehchan@gmail.com</string>
+    <string name="alamat_Email">Alamat Email</string>
+    <string name="jenis_Kelamin">Jenis Kelamin</string>
+    <string name="perbarui_Profil">Perbarui Profil</string>
+    <string-array name="jenis_Dokter">
+        <item>Gigi</item>
+        <item>Kandungan</item>
+        <item>Kelamin</item>
+        <item>Mata</item>
+        <item>Psikologi</item>
+        <item>THT</item>
+    </string-array>
+    <string-array name="nama_Dokter">
+        <item>Ammer Fath</item>
+        <item>Bobi Fred</item>
+        <item>Gerald</item>
+        <item>Sulistiyan</item>
+    </string-array>
     <string name="daftar_akun_dokter">Daftar Akun Dokter</string>
     <string name="tahun_pengalaman">Tahun Pengalaman</string>
     <string name="spesialis">Spesialis</string>
