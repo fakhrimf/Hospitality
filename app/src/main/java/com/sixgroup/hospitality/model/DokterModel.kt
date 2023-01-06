@@ -117,10 +117,6 @@ data class DokterModel(
         return liveData
     }
 
-    override fun logout() {
-        TODO("Not yet implemented")
-    }
-
     fun acceptAppointment() {
         TODO("Fungsi accept appointment disini")
     }

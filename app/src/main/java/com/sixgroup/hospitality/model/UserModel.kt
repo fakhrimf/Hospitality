@@ -3,6 +3,8 @@ package com.sixgroup.hospitality.model
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import com.sixgroup.hospitality.utils.APP_SHARED_PREFERENCE
+import com.sixgroup.hospitality.utils.PASIEN_SHARED_PREFERENCE
 
 abstract class UserModel {
     abstract var idUser: String?
@@ -16,5 +18,12 @@ abstract class UserModel {
         remember: Boolean
     ): MutableLiveData<Boolean>
 
-    abstract fun logout()
+    fun logout(
+        context: Context,
+    ) {
+        val sharedPref = context.getSharedPreferences(
+            APP_SHARED_PREFERENCE,
+            Context.MODE_PRIVATE)
+        val editor = sharedPref.edit().clear().apply()
+    }
 }

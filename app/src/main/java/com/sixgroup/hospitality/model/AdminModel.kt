@@ -34,10 +34,6 @@ data class AdminModel(
         return liveData
     }
 
-    override fun logout() {
-        TODO("Not yet implemented")
-    }
-
     fun editProfil(
         nama: String = this.nama!!,
         email: String = this.email!!,

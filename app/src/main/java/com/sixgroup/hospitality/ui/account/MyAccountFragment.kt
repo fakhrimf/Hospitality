@@ -1,18 +1,19 @@
 package com.sixgroup.hospitality.ui.account
 
-import androidx.lifecycle.ViewModelProvider
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.sixgroup.hospitality.LoginActivity
 import com.sixgroup.hospitality.R
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.decryptCBC
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.getCurrentUser
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_myaccount.*
-import kotlinx.android.synthetic.main.fragment_myaccount.userDP
-import kotlinx.android.synthetic.main.fragment_register.*
 
 class MyAccountFragment : Fragment() {
 
@@ -38,10 +39,6 @@ class MyAccountFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_myaccount, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         init()
@@ -54,6 +51,12 @@ class MyAccountFragment : Fragment() {
             if (model!!.foto!!.isNotEmpty()) picasso.load(model!!.foto!!).into(userDP)
             if (model!!.nama!!.isNotEmpty()) namaUser.text = model!!.nama!!.decryptCBC()
             if (model!!.noHP!!.isNotEmpty()) hpUser.text = model!!.noHP!!.decryptCBC()
+            logoutLayout.setOnClickListener {
+                model!!.logout(requireContext())
+                startActivity(Intent(requireContext(), LoginActivity::class.java))
+                requireActivity().finish()
+                Toast.makeText(requireContext(), "Logout berhasil!", Toast.LENGTH_LONG).show()
+            }
         }
     }
 }

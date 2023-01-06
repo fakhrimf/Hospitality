@@ -47,10 +47,6 @@ data class PasienModel(
         return liveData
     }
 
-    override fun logout() {
-        TODO("Not yet implemented")
-    }
-
     fun registerProfile(context: Context, path: Uri?): MutableLiveData<DatabaseMessageModel> {
         val liveData = MutableLiveData<DatabaseMessageModel>()
         idUser = "${reference.push().key}"

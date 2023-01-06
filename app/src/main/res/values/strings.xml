@@ -58,7 +58,13 @@
     <string name="birthdate_error_empty">Tanggal lahir tidak boleh kosong</string>
     <string name="name_error_empty">Nama tidak boleh kosong</string>
     <string name="phone_error_empty">Nomor telepon tidak boleh kosong</string>
+    <string name="spesialis_error_empty">Nomor telepon tidak boleh kosong</string>
+    <string name="yoe_error_empty">Nomor telepon tidak boleh kosong</string>
     <string name="phone_error_char">Nomor telepon tidak valid</string>
     <string name="password_error_empty">Password tidak boleh kosong</string>
     <string name="password_error_lessthaneight">Password harus memiliki 8 karakter atau lebih</string>
+    <string name="daftar_akun_dokter">Daftar Akun Dokter</string>
+    <string name="tahun_pengalaman">Tahun Pengalaman</string>
+    <string name="spesialis">Spesialis</string>
+    <string name="input_kode_dokter">Masukkan Kode Dokter</string>
 </resources>
