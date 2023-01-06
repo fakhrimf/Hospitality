@@ -171,7 +171,7 @@
             android:text="2049"
             android:layout_marginStart="42dp"
             android:layout_marginTop="8dp"
-            android:textColor="@color/white"
+            android:textColor="@color/white"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -214,7 +214,7 @@
             android:layout_marginTop="8dp"
             android:textColor="@color/black"
             android:layout_marginStart="42dp"
-            android:text="@string/waktu_Appointment"
+            android:text="@string/waktu_Appointment"/>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,8 +1,8 @@
 package com.sixgroup.hospitality.ui.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,15 +14,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.sixgroup.hospitality.HomeActivity
 import com.sixgroup.hospitality.R
 import com.sixgroup.hospitality.RegisterActivity
+import com.sixgroup.hospitality.model.DokterModel
 import com.sixgroup.hospitality.model.PasienModel
-import com.sixgroup.hospitality.utils.SECRET_IV
-import com.sixgroup.hospitality.utils.SECRET_KEY
+import com.sixgroup.hospitality.utils.APP_SHARED_PREFERENCE
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.getRememberMe
-import com.sixgroup.hospitality.utils.repository.Repository.Companion.rememberMePasien
+import com.sixgroup.hospitality.utils.repository.Repository.Companion.removeDokterSP
+import com.sixgroup.hospitality.utils.repository.Repository.Companion.removePasienSP
 import kotlinx.android.synthetic.main.fragment_login.*
-import javax.crypto.Cipher
-import javax.crypto.spec.IvParameterSpec
-import javax.crypto.spec.SecretKeySpec
 
 class LoginFragment : Fragment() {
 
@@ -59,17 +57,31 @@ class LoginFragment : Fragment() {
             requireActivity().finish()
         }
         buttonLogin.setOnClickListener {
+            removeDokterSP(requireContext())
+            removePasienSP(requireContext())
+            val sharedPref = requireContext().getSharedPreferences(
+                APP_SHARED_PREFERENCE,
+                Context.MODE_PRIVATE)
+            sharedPref.edit().clear().apply()
             backgroundDark.alpha = 0.7F
             buttonLogin.isClickable = false
-            val masuk = getPasienModel().login(requireActivity().applicationContext, this, checkBox.isChecked)
-            masuk.observeForever {
-                if (it) {
+            var masuk = getPasienModel().login(requireActivity().applicationContext, this, checkBox.isChecked)
+            masuk.observeForever { masukPasien ->
+                if (masukPasien) {
                     startActivity(Intent(requireContext(), HomeActivity::class.java))
                     requireActivity().finish()
                 } else {
-                    backgroundDark.alpha = 0F
-                    buttonLogin.isClickable = true
-                    Toast.makeText(requireContext(), "Email atau Password salah", Toast.LENGTH_SHORT).show()
+                    masuk = getDokterModel().login(requireActivity().applicationContext, this, checkBox.isChecked)
+                    masuk.observeForever {
+                        if (it) {
+                            startActivity(Intent(requireContext(), HomeActivity::class.java))
+                            requireActivity().finish()
+                        } else {
+                            backgroundDark.alpha = 0F
+                            buttonLogin.isClickable = true
+                            Toast.makeText(requireContext(), "Email atau Password salah", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
             }
         }
@@ -82,7 +94,14 @@ class LoginFragment : Fragment() {
         return PasienModel(
             email = emailInput.text.toString(),
             password = passwordInput.text.toString(),
-            tglLahir = null
+            tglLahir = null,
+        )
+    }
+
+    private fun getDokterModel() : DokterModel {
+        return DokterModel(
+            email = emailInput.text.toString(),
+            password = passwordInput.text.toString(),
         )
     }
 }

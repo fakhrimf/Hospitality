@@ -1,9 +1,7 @@
 package com.sixgroup.hospitality.ui.login
 
 import android.Manifest
-import android.app.DatePickerDialog
 import android.content.Intent
-import android.icu.util.Calendar
 import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -16,12 +14,10 @@ import androidx.core.app.ActivityCompat
 import com.sixgroup.hospitality.HomeActivity
 import com.sixgroup.hospitality.R
 import com.sixgroup.hospitality.model.DokterModel
-import com.sixgroup.hospitality.model.PasienModel
 import com.sixgroup.hospitality.utils.CAMERA_REQUEST_CODE
 import com.sixgroup.hospitality.utils.IMAGE_REQUEST_CODE
 import com.sixgroup.hospitality.utils.repository.Repository
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.encryptCBC
-import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.android.synthetic.main.fragment_register_dokter.*
 import kotlinx.android.synthetic.main.fragment_register_dokter.backButton
 import kotlinx.android.synthetic.main.fragment_register_dokter.backgroundDark
@@ -32,8 +28,6 @@ import kotlinx.android.synthetic.main.fragment_register_dokter.registerButton
 import kotlinx.android.synthetic.main.fragment_register_dokter.userDP
 import kotlinx.android.synthetic.main.fragment_register_dokter.userImageRegister
 import kotlinx.android.synthetic.main.fragment_register_dokter.userImageRegisterEditBtn
-import java.text.SimpleDateFormat
-import java.util.*
 
 class RegisterDokterFragment : Fragment() {
 
@@ -43,7 +37,6 @@ class RegisterDokterFragment : Fragment() {
 
     var path: Uri? = null
     private lateinit var viewModel: RegisterDokterViewModel
-    private val myCalendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,24 +60,12 @@ class RegisterDokterFragment : Fragment() {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        init()
+    }
+
     private fun init() {
-        val date =
-            DatePickerDialog.OnDateSetListener { _, year, month, day ->
-                myCalendar.set(Calendar.YEAR, year)
-                myCalendar.set(Calendar.MONTH, month)
-                myCalendar.set(Calendar.DAY_OF_MONTH, day)
-                updateLabel()
-            }
-        birthInput.setOnClickListener(View.OnClickListener {
-            DatePickerDialog(
-                requireContext(),
-                R.style.DialogTheme,
-                date,
-                myCalendar.get(Calendar.YEAR),
-                myCalendar.get(Calendar.MONTH),
-                myCalendar.get(Calendar.DAY_OF_MONTH),
-            ).show()
-        })
         backButton.setOnClickListener {
             requireActivity().onBackPressed()
         }
@@ -117,12 +98,6 @@ class RegisterDokterFragment : Fragment() {
             ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA), CAMERA_REQUEST_CODE)
             startActivityForResult(Repository.getImageIntent(), IMAGE_REQUEST_CODE)
         }
-    }
-
-    private fun updateLabel(){
-        val myFormat = "dd/MM/yyyy"
-        val dateFormat = SimpleDateFormat(myFormat, Locale.JAPAN);
-        birthInput.setText(dateFormat.format(myCalendar.time));
     }
 
     private fun isEmpty(): Boolean {

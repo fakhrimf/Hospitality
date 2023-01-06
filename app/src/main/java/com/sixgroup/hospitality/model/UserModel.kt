@@ -24,6 +24,6 @@ abstract class UserModel {
         val sharedPref = context.getSharedPreferences(
             APP_SHARED_PREFERENCE,
             Context.MODE_PRIVATE)
-        val editor = sharedPref.edit().clear().apply()
+        sharedPref.edit().clear().apply()
     }
 }

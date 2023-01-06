@@ -281,17 +281,17 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/psansreg"
-                android:text="@string/otp_err"
+                android:text="@string/dokter_question"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/registerButton" />
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/registerDokter"
                 style="@style/TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/kirim_ulang"
+                android:text="@string/register_dokter"
                 android:layout_margin="10dp"
                 app:layout_constraintStart_toEndOf="@+id/textView8"
                 app:layout_constraintTop_toBottomOf="@+id/registerButton" />

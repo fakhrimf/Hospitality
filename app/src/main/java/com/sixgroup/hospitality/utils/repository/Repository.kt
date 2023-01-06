@@ -42,6 +42,20 @@ class Repository {
             editor.putString(PASIEN_SHARED_PREFERENCE, json)
             editor.apply()
         }
+        fun removePasienSP(context: Context) {
+            val sharedPref = context.getSharedPreferences(APP_SHARED_PREFERENCE,
+                Context.MODE_PRIVATE
+            )
+            val editor = sharedPref.edit()
+            editor.remove(PASIEN_SHARED_PREFERENCE)
+        }
+        fun removeDokterSP(context: Context) {
+            val sharedPref = context.getSharedPreferences(APP_SHARED_PREFERENCE,
+                Context.MODE_PRIVATE
+            )
+            val editor = sharedPref.edit()
+            editor.remove(DOKTER_SHARED_PREFERENCE)
+        }
         fun rememberMePasien(context: Context, pasienModel: PasienModel) {
             val sharedPref = context.getSharedPreferences(APP_SHARED_PREFERENCE,
                 Context.MODE_PRIVATE
@@ -154,6 +168,13 @@ class Repository {
             val profileJson = context.getSharedPreferences(APP_SHARED_PREFERENCE,
                 Context.MODE_PRIVATE).getString(PASIEN_SHARED_PREFERENCE, null)
             return if (profileJson != null) gson.fromJson(profileJson, PasienModel::class.java)
+            else null
+        }
+        fun getCurrentDokter(context: Context): DokterModel? {
+            val gson = Gson()
+            val profileJson = context.getSharedPreferences(APP_SHARED_PREFERENCE,
+                Context.MODE_PRIVATE).getString(DOKTER_SHARED_PREFERENCE, null)
+            return if (profileJson != null) gson.fromJson(profileJson, DokterModel::class.java)
             else null
         }
         fun getImageIntent(): Intent {

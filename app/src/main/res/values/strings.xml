@@ -100,4 +100,6 @@
     <string name="tahun_pengalaman">Tahun Pengalaman</string>
     <string name="spesialis">Spesialis</string>
     <string name="input_kode_dokter">Masukkan Kode Dokter</string>
+    <string name="dokter_question">Anda Dokter?</string>
+    <string name="register_dokter">Register Dokter</string>
 </resources>

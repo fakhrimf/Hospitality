@@ -10,7 +10,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.sixgroup.hospitality.R
 import com.sixgroup.hospitality.utils.DB_CHILD_DOKTER
-import com.sixgroup.hospitality.utils.DB_CHILD_PASIEN
 import com.sixgroup.hospitality.utils.DB_SET_VALUE_SUCCESS
 import com.sixgroup.hospitality.utils.STORAGE_IMAGES
 import com.sixgroup.hospitality.utils.repository.DatabaseMessageModel
@@ -20,9 +19,9 @@ import com.sixgroup.hospitality.utils.repository.Repository.Companion.getChild
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.storeDokter
 
 data class DokterModel(
-    private var nama: String? = "",
-    private var spesialis: String? = "",
-    private var yoe: Int? = 0,
+    var nama: String? = "",
+    var spesialis: String? = "",
+    var yoe: Int? = 0,
     override var idUser: String? = "",
     override var email: String? = "",
     override var foto: String? = "",
@@ -60,7 +59,7 @@ data class DokterModel(
                 override fun onDataChange(p0: DataSnapshot) {
                     var dupe = false
                     for (i in p0.children) {
-                        val model = i.getValue(PasienModel::class.java)
+                        val model = i.getValue(DokterModel::class.java)
                         if (model?.email == email) {
                             dupe = true
                             liveData.value = DatabaseMessageModel(
@@ -79,7 +78,7 @@ data class DokterModel(
                                             liveData.value =
                                                 DatabaseMessageModel(true, DB_SET_VALUE_SUCCESS)
                                             storeDokter(context, this@DokterModel)
-                                            getChild(DB_CHILD_PASIEN).child(idUser!!)
+                                            getChild(DB_CHILD_DOKTER).child(idUser!!)
                                                 .setValue(this@DokterModel) { error, _ ->
                                                     if (error != null) {
                                                         liveData.value = DatabaseMessageModel(
@@ -100,7 +99,7 @@ data class DokterModel(
                                 }
                             }
                         } else {
-                            getChild(DB_CHILD_PASIEN).child(idUser!!)
+                            getChild(DB_CHILD_DOKTER).child(idUser!!)
                                 .setValue(this@DokterModel) { error, _ ->
                                     if (error != null) {
                                         liveData.value = DatabaseMessageModel(false, error.message)

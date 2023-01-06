@@ -51,7 +51,7 @@
                 app:cardCornerRadius="1000dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView7">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/userDP"
@@ -122,7 +122,7 @@
                     app:hintTextColor="@color/accent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/emailInput"
+                        android:id="@+id/emailInputEditProfil"
                         android:layout_width="match_parent"
                         android:layout_height="32dp"
                         android:background="@android:color/transparent"
@@ -154,7 +154,7 @@
                     app:hintTextColor="@color/accent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/emailInput"
+                        android:id="@+id/namaInputEdit"
                         android:layout_width="match_parent"
                         android:layout_height="32dp"
                         android:background="@android:color/transparent"
@@ -186,7 +186,7 @@
                     app:hintTextColor="@color/accent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/emailInput"
+                        android:id="@+id/phoneInputEdit"
                         android:layout_width="match_parent"
                         android:layout_height="32dp"
                         android:background="@android:color/transparent"
@@ -218,7 +218,7 @@
                     app:hintTextColor="@color/accent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/emailInput"
+                        android:id="@+id/genderInputEdit"
                         android:layout_width="match_parent"
                         android:layout_height="32dp"
                         android:background="@android:color/transparent"
@@ -260,7 +260,7 @@
                     app:hintTextColor="@color/accent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/emailInput"
+                        android:id="@+id/birthInputEdit"
                         android:layout_width="match_parent"
                         android:layout_height="32dp"
                         android:background="@android:color/transparent"

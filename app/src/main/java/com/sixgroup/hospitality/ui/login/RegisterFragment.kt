@@ -7,7 +7,6 @@ import android.content.Intent
 import android.icu.util.Calendar
 import android.net.Uri
 import android.os.Bundle
-import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,13 +14,12 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.sixgroup.hospitality.ConfirmDokterActivity
 import com.sixgroup.hospitality.HomeActivity
 import com.sixgroup.hospitality.R
 import com.sixgroup.hospitality.model.PasienModel
 import com.sixgroup.hospitality.utils.CAMERA_REQUEST_CODE
 import com.sixgroup.hospitality.utils.IMAGE_REQUEST_CODE
-import com.sixgroup.hospitality.utils.SECRET_IV
-import com.sixgroup.hospitality.utils.SECRET_KEY
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.encryptCBC
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.getImageBitmap
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.getImageIntent
@@ -32,9 +30,6 @@ import kotlinx.android.synthetic.main.fragment_register.passwordInput
 import kotlinx.android.synthetic.main.fragment_register.registerButton
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.crypto.Cipher
-import javax.crypto.spec.IvParameterSpec
-import javax.crypto.spec.SecretKeySpec
 
 
 class RegisterFragment : Fragment() {
@@ -122,6 +117,10 @@ class RegisterFragment : Fragment() {
         userImageRegisterEditBtn.setOnClickListener {
             ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA), CAMERA_REQUEST_CODE)
             startActivityForResult(getImageIntent(), IMAGE_REQUEST_CODE)
+        }
+        registerDokter.setOnClickListener {
+            startActivity(Intent(requireContext(), ConfirmDokterActivity::class.java))
+            requireActivity().finish()
         }
     }
 
