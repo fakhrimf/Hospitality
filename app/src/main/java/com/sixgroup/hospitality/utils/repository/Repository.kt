@@ -47,6 +47,7 @@ class Repository {
             )
             val editor = sharedPref.edit()
             editor.remove(PASIEN_SHARED_PREFERENCE)
+            editor.apply()
         }
         fun removeDokterSP(context: Context) {
             val sharedPref = context.getSharedPreferences(APP_SHARED_PREFERENCE,
@@ -54,6 +55,7 @@ class Repository {
             )
             val editor = sharedPref.edit()
             editor.remove(DOKTER_SHARED_PREFERENCE)
+            editor.apply()
         }
         fun rememberMePasien(context: Context, pasienModel: PasienModel) {
             val sharedPref = context.getSharedPreferences(APP_SHARED_PREFERENCE,
@@ -185,8 +187,7 @@ class Repository {
             return if (profileJson != null) gson.fromJson(profileJson, DokterModel::class.java)
             else null
         }
-        fun getOnboard(context: Context): Boolean? {
-            val gson = Gson()
+        fun getOnboard(context: Context): Boolean {
             return context.getSharedPreferences(
                 APP_SHARED_PREFERENCE,
                 Context.MODE_PRIVATE
@@ -224,5 +225,4 @@ class Repository {
             return String(output)
         }
     }
-
 }
