@@ -13,7 +13,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.storage.FirebaseStorage
 import com.google.gson.Gson
 import com.sixgroup.hospitality.model.AdminModel
@@ -71,6 +70,38 @@ class Repository {
             val json = gson.toJson(pasienModel) as String
             editor.putString(PASIEN_RM_SHARED_PREFERENCE, json)
             editor.apply()
+        }
+
+        fun accApt(
+            appointmentModel: AppointmentModel
+        ): MutableLiveData<DatabaseMessageModel> {
+            val liveData = MutableLiveData<DatabaseMessageModel>()
+            appointmentModel.status = STATUS_APP.ACC.toString().encryptCBC()
+            getChild(DB_CHILD_APPOINTMENT).child(appointmentModel.idAppointment!!)
+                .setValue(appointmentModel) { error, _ ->
+                    if (error != null) {
+                        liveData.value = DatabaseMessageModel(false, error.message)
+                    } else {
+                        liveData.value = DatabaseMessageModel(true, DB_SET_VALUE_SUCCESS)
+                    }
+                }
+            return liveData
+        }
+
+        fun rjctApt(
+            appointmentModel: AppointmentModel
+        ): MutableLiveData<DatabaseMessageModel> {
+            val liveData = MutableLiveData<DatabaseMessageModel>()
+            appointmentModel.status = STATUS_APP.RJCT.toString().encryptCBC()
+            getChild(DB_CHILD_APPOINTMENT).child(appointmentModel.idAppointment!!)
+                .setValue(appointmentModel) { error, _ ->
+                    if (error != null) {
+                        liveData.value = DatabaseMessageModel(false, error.message)
+                    } else {
+                        liveData.value = DatabaseMessageModel(true, DB_SET_VALUE_SUCCESS)
+                    }
+                }
+            return liveData
         }
 
         fun getRememberMe(context: Context): PasienModel? {

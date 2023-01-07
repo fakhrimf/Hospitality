@@ -32,8 +32,14 @@ const val SECRET_IV = "0b919bhalij28dIV"
 //INTENTS
 const val IMAGE_TYPE = "image/*"
 const val IMAGE_REQUEST_CODE = 420
+const val APPOINTMENT_DOK_DETAIL = "appt_dok_detail"
+const val APPOINTMENT_PAS_DETAIL = "appt_pass_detail"
+const val APPOINTMENT_APP_DETAIL = "appt_app_detail"
 
 //STATUS
 enum class STATUS_APP {
     NACC, ACC, RJCT
 }
+
+//NEWS
+const val NEWS = "df796d11fbc5483a873447186bc98f62"

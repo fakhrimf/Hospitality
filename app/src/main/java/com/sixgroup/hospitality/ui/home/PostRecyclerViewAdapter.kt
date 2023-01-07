@@ -1,25 +1,24 @@
 package com.sixgroup.hospitality.ui.home
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.sixgroup.hospitality.ui.home.placeholder.PlaceholderContent.PlaceholderItem
 import com.sixgroup.hospitality.databinding.FragmentPostBinding
+import com.sixgroup.hospitality.ui.home.news.Article
 import com.squareup.picasso.Picasso
 
-/**
- * [RecyclerView.Adapter] that can display a [PlaceholderItem].
- * TODO: Replace the implementation with code for your data type.
- */
 class PostRecyclerViewAdapter(
-    private val values: List<PlaceholderItem>
+    private val values: ArrayList<Article>,
+    private val context: Context?
 ) : RecyclerView.Adapter<PostRecyclerViewAdapter.ViewHolder>() {
-
-    private val linkPlaceholder = "https://akcdn.detik.net.id/visual/2020/07/07/anime-your-name-2_169.png?w=650"
-    private val linkPlaceholder_ = "https://static.wikia.nocookie.net/supermarioglitchy4/images/9/9b/PewDiePie.png/revision/latest?cb=20210227180256"
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         return ViewHolder(
@@ -34,12 +33,19 @@ class PostRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.poster.text = item.id
-        holder.posterlocation.text = item.content
-        holder.posttitle.text = item.content
-        holder.postdetail.text = item.details
-        Picasso.get().load(linkPlaceholder).into(holder.postImage)
-        Picasso.get().load(linkPlaceholder_).into(holder.userImage)
+        if (item.source.name == "Google News") holder.cvPost.visibility = View.GONE
+        holder.poster.text = item.author
+        if (item.author == null) holder.poster.text = "Unknown Author"
+        holder.posterlocation.text = item.source.name
+        if (item.source.name == null) holder.posterlocation.text = "Unknown Source"
+        holder.posttitle.text = item.title
+        holder.postdetail.text = item.description
+        Picasso.get().load(item.urlToImage).into(holder.postImage)
+        holder.cvPost.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(item.url)
+            context?.startActivity(intent)
+        }
     }
 
     inner class ViewHolder(binding: FragmentPostBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -48,7 +54,7 @@ class PostRecyclerViewAdapter(
         val posttitle: TextView = binding.posttitle
         val postdetail: TextView = binding.postdetail
         val postImage: ImageView = binding.postImage
-        val userImage: ImageView = binding.userImage
+        val cvPost = binding.cvPost
 
         override fun toString(): String {
             return super.toString() + " '" + posterlocation.text + "'"
