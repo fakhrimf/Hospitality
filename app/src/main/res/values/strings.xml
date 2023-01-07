@@ -104,4 +104,7 @@
     <string name="register_dokter">Register Dokter</string>
     <string name="placeholder_clock">07:00</string>
     <string name="appointmentku">Appointmentku</string>
+    <string name="jadwal_pertemuan">Jadwal Pertemuan</string>
+    <string name="keluhan_title">Keluhan</string>
+    <string name="chat">Chat</string>
 </resources>

@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
+import com.google.firebase.database.core.Repo
 import com.sixgroup.hospitality.HomeActivity
 import com.sixgroup.hospitality.LoginActivity
 import com.sixgroup.hospitality.OnboardActivity
@@ -32,6 +33,10 @@ class SplashFragment : Fragment() {
         Repository.getOnboard(requireActivity())
     }
 
+    private val model2 by lazy {
+        Repository.getCurrentUser(requireActivity())
+    }
+
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -43,7 +48,7 @@ class SplashFragment : Fragment() {
     }
 
     private val mRunnable = Runnable {
-        if (!model) {
+        if (!model || model2 != null) {
             startActivity(Intent(requireContext(), OnboardActivity::class.java))
             requireActivity().finish()
         } else {

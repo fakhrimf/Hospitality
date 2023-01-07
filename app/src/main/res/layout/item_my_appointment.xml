@@ -14,17 +14,28 @@
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cvAppointment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
+            android:foreground="?android:attr/selectableItemBackground"
             app:cardBackgroundColor="@color/accent"
             app:cardCornerRadius="10dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/statusAcc"
+                    android:layout_width="10dp"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView7"
@@ -46,11 +57,12 @@
 
                 <LinearLayout
                     android:id="@+id/linearLayout"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="@+id/cardView7"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView2"
                     app:layout_constraintStart_toEndOf="@+id/cardView7"
                     app:layout_constraintTop_toTopOf="@+id/cardView7">
 
@@ -68,6 +80,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.7"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:fontFamily="@font/psansreg"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -75,6 +89,7 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/imageView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
@@ -118,18 +133,18 @@
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/psansreg"
                         android:gravity="center"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         android:maxLines="1"
                         android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/kalender"
+                        app:layout_constraintTop_toTopOf="parent"
                         tools:text="Senin, 17 April 2049" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_time"
                         android:layout_marginEnd="8dp"
+                        android:src="@drawable/ic_time"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/waktu"
                         app:layout_constraintTop_toTopOf="parent" />

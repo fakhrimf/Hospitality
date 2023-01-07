@@ -42,14 +42,17 @@ class MyAppointmentFragment : Fragment() {
         if (getCurrentUser(requireContext()) == null) {
             getAppointmentDokter(getCurrentDokter(requireContext())!!).observeForever {
                 listAppointment = it
-                list.adapter = MyAppointmentRecyclerViewAdapter(listAppointment, true)
+                list.adapter = MyAppointmentRecyclerViewAdapter(listAppointment, true, context)
             }
         } else {
             getAppointmentPasien(getCurrentUser(requireContext())!!).observeForever {
                 listAppointment = it
-                list.adapter = MyAppointmentRecyclerViewAdapter(listAppointment, false)
+                list.adapter = MyAppointmentRecyclerViewAdapter(listAppointment, false, context)
             }
             list.layoutManager = LinearLayoutManager(requireContext())
+        }
+        backbtn.setOnClickListener {
+            requireActivity().finish()
         }
     }
 }

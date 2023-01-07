@@ -14,4 +14,7 @@
     <color name="accent">#FF416165</color>
     <color name="text_btn">#FF416188</color>
     <color name="background_less_dark">#FF0B3948</color>
+    <color name="acced">#00ED33</color>
+    <color name="nacced">#E6D10A</color>
+    <color name="rjct">#AA0606</color>
 </resources>
