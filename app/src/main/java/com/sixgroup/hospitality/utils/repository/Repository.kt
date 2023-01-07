@@ -13,9 +13,11 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.storage.FirebaseStorage
 import com.google.gson.Gson
 import com.sixgroup.hospitality.model.AdminModel
+import com.sixgroup.hospitality.model.AppointmentModel
 import com.sixgroup.hospitality.model.DokterModel
 import com.sixgroup.hospitality.model.PasienModel
 import com.sixgroup.hospitality.utils.*
@@ -32,8 +34,8 @@ class Repository {
         val storageReference = storage.reference
         fun getChild(child: String) = reference.child(child)
         fun storePasien(context: Context, pasienModel: PasienModel) {
-            val sharedPref = context.getSharedPreferences(APP_SHARED_PREFERENCE,
-                Context.MODE_PRIVATE
+            val sharedPref = context.getSharedPreferences(
+                APP_SHARED_PREFERENCE, Context.MODE_PRIVATE
             )
             val editor = sharedPref.edit()
             val gson = Gson()
@@ -41,25 +43,28 @@ class Repository {
             editor.putString(PASIEN_SHARED_PREFERENCE, json)
             editor.apply()
         }
+
         fun removePasienSP(context: Context) {
-            val sharedPref = context.getSharedPreferences(APP_SHARED_PREFERENCE,
-                Context.MODE_PRIVATE
+            val sharedPref = context.getSharedPreferences(
+                APP_SHARED_PREFERENCE, Context.MODE_PRIVATE
             )
             val editor = sharedPref.edit()
             editor.remove(PASIEN_SHARED_PREFERENCE)
             editor.apply()
         }
+
         fun removeDokterSP(context: Context) {
-            val sharedPref = context.getSharedPreferences(APP_SHARED_PREFERENCE,
-                Context.MODE_PRIVATE
+            val sharedPref = context.getSharedPreferences(
+                APP_SHARED_PREFERENCE, Context.MODE_PRIVATE
             )
             val editor = sharedPref.edit()
             editor.remove(DOKTER_SHARED_PREFERENCE)
             editor.apply()
         }
+
         fun rememberMePasien(context: Context, pasienModel: PasienModel) {
-            val sharedPref = context.getSharedPreferences(APP_SHARED_PREFERENCE,
-                Context.MODE_PRIVATE
+            val sharedPref = context.getSharedPreferences(
+                APP_SHARED_PREFERENCE, Context.MODE_PRIVATE
             )
             val editor = sharedPref.edit()
             val gson = Gson()
@@ -67,16 +72,19 @@ class Repository {
             editor.putString(PASIEN_RM_SHARED_PREFERENCE, json)
             editor.apply()
         }
+
         fun getRememberMe(context: Context): PasienModel? {
             val gson = Gson()
-            val profileJson = context.getSharedPreferences(APP_SHARED_PREFERENCE,
-                Context.MODE_PRIVATE).getString(PASIEN_RM_SHARED_PREFERENCE, null)
+            val profileJson = context.getSharedPreferences(
+                APP_SHARED_PREFERENCE, Context.MODE_PRIVATE
+            ).getString(PASIEN_RM_SHARED_PREFERENCE, null)
             return if (profileJson != null) gson.fromJson(profileJson, PasienModel::class.java)
             else null
         }
+
         fun storeDokter(context: Context, dokterModel: DokterModel) {
-            val sharedPref = context.getSharedPreferences(APP_SHARED_PREFERENCE,
-                Context.MODE_PRIVATE
+            val sharedPref = context.getSharedPreferences(
+                APP_SHARED_PREFERENCE, Context.MODE_PRIVATE
             )
             val editor = sharedPref.edit()
             val gson = Gson()
@@ -86,18 +94,20 @@ class Repository {
             Log.d("PROFILE", json)
             getCurrentUser(context)
         }
+
         fun storeOnboard(context: Context, boolean: Boolean) {
-            val sharedPref = context.getSharedPreferences(APP_SHARED_PREFERENCE,
-                Context.MODE_PRIVATE
+            val sharedPref = context.getSharedPreferences(
+                APP_SHARED_PREFERENCE, Context.MODE_PRIVATE
             )
             val editor = sharedPref.edit()
             editor.putBoolean(ONBOARD_SHARED_PREFERENCE, boolean)
             editor.apply()
             getCurrentUser(context)
         }
+
         fun storeAdmin(context: Context, adminModel: AdminModel) {
-            val sharedPref = context.getSharedPreferences(APP_SHARED_PREFERENCE,
-                Context.MODE_PRIVATE
+            val sharedPref = context.getSharedPreferences(
+                APP_SHARED_PREFERENCE, Context.MODE_PRIVATE
             )
             val editor = sharedPref.edit()
             val gson = Gson()
@@ -107,6 +117,7 @@ class Repository {
             Log.d("PROFILE", json)
             getCurrentUser(context)
         }
+
         fun getPasienData(): MutableLiveData<ArrayList<PasienModel>> {
             val liveData = MutableLiveData<ArrayList<PasienModel>>()
             val list = ArrayList<PasienModel>()
@@ -129,6 +140,7 @@ class Repository {
             })
             return liveData
         }
+
         fun getDokterData(): MutableLiveData<ArrayList<DokterModel>> {
             val liveData = MutableLiveData<ArrayList<DokterModel>>()
             val list = ArrayList<DokterModel>()
@@ -151,6 +163,7 @@ class Repository {
             })
             return liveData
         }
+
         fun getAdminData(): MutableLiveData<ArrayList<AdminModel>> {
             val liveData = MutableLiveData<ArrayList<AdminModel>>()
             val list = ArrayList<AdminModel>()
@@ -173,26 +186,91 @@ class Repository {
             })
             return liveData
         }
+
+        fun addAppointment(appointmentModel: AppointmentModel): MutableLiveData<DatabaseMessageModel> {
+            val liveData = MutableLiveData<DatabaseMessageModel>()
+            appointmentModel.idAppointment = "${reference.push().key}"
+            getChild(DB_CHILD_APPOINTMENT).child(appointmentModel.idAppointment!!)
+                .setValue(appointmentModel) { error, _ ->
+                    if (error != null) {
+                        liveData.value = DatabaseMessageModel(false, error.message)
+                    } else {
+                        liveData.value = DatabaseMessageModel(true, DB_SET_VALUE_SUCCESS)
+                    }
+                }
+            return liveData
+        }
+
+        fun getAppointmentPasien(pasienModel: PasienModel): MutableLiveData<ArrayList<AppointmentModel>> {
+            val liveData = MutableLiveData<ArrayList<AppointmentModel>>()
+            val list = ArrayList<AppointmentModel>()
+            getChild(DB_CHILD_APPOINTMENT).addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    throw Throwable(p0.message)
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    list.clear()
+                    for (data in p0.children) {
+                        val model = data.getValue(AppointmentModel::class.java)
+                        model?.let {
+                            if (model.pasien == pasienModel.idUser)
+                                list.add(model)
+                        }
+                    }
+                    liveData.value = list
+                }
+            })
+            return liveData
+        }
+
+        fun getAppointmentDokter(dokterModel: DokterModel): MutableLiveData<ArrayList<AppointmentModel>> {
+            val liveData = MutableLiveData<ArrayList<AppointmentModel>>()
+            val list = ArrayList<AppointmentModel>()
+            getChild(DB_CHILD_APPOINTMENT).addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    throw Throwable(p0.message)
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    list.clear()
+                    for (data in p0.children) {
+                        val model = data.getValue(AppointmentModel::class.java)
+                        model?.let {
+                            if (model.dokter == dokterModel.idUser)
+                                list.add(model)
+                        }
+                    }
+                    liveData.value = list
+                }
+            })
+            return liveData
+        }
+
         fun getCurrentUser(context: Context): PasienModel? {
             val gson = Gson()
-            val profileJson = context.getSharedPreferences(APP_SHARED_PREFERENCE,
-                Context.MODE_PRIVATE).getString(PASIEN_SHARED_PREFERENCE, null)
+            val profileJson = context.getSharedPreferences(
+                APP_SHARED_PREFERENCE, Context.MODE_PRIVATE
+            ).getString(PASIEN_SHARED_PREFERENCE, null)
             return if (profileJson != null) gson.fromJson(profileJson, PasienModel::class.java)
             else null
         }
+
         fun getCurrentDokter(context: Context): DokterModel? {
             val gson = Gson()
-            val profileJson = context.getSharedPreferences(APP_SHARED_PREFERENCE,
-                Context.MODE_PRIVATE).getString(DOKTER_SHARED_PREFERENCE, null)
+            val profileJson = context.getSharedPreferences(
+                APP_SHARED_PREFERENCE, Context.MODE_PRIVATE
+            ).getString(DOKTER_SHARED_PREFERENCE, null)
             return if (profileJson != null) gson.fromJson(profileJson, DokterModel::class.java)
             else null
         }
+
         fun getOnboard(context: Context): Boolean {
             return context.getSharedPreferences(
-                APP_SHARED_PREFERENCE,
-                Context.MODE_PRIVATE
+                APP_SHARED_PREFERENCE, Context.MODE_PRIVATE
             ).getBoolean(ONBOARD_SHARED_PREFERENCE, false)
         }
+
         fun getImageIntent(): Intent {
             val intent = Intent()
             intent.apply {
@@ -201,10 +279,16 @@ class Repository {
             }
             return Intent.createChooser(intent, "Pilih gambar yang ingin digunakan")
         }
+
         fun getImageBitmap(contentResolver: ContentResolver, path: Uri): Bitmap {
-            @Suppress("DEPRECATION")
-            return ImageDecoder.decodeBitmap(ImageDecoder.createSource(contentResolver, path))
+            @Suppress("DEPRECATION") return ImageDecoder.decodeBitmap(
+                ImageDecoder.createSource(
+                    contentResolver,
+                    path
+                )
+            )
         }
+
         fun String.encryptCBC(): String {
             val iv = IvParameterSpec(SECRET_IV.toByteArray())
             val keySpec = SecretKeySpec(SECRET_KEY.toByteArray(), "AES")

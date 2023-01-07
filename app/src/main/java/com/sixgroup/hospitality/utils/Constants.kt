@@ -17,6 +17,7 @@ const val DB_SET_VALUE_SUCCESS = "aee408847d35e44e99430f0979c3357b85fe8dbb4535a4
 const val DB_CHILD_PASIEN = "Pasien"
 const val DB_CHILD_DOKTER = "Dokter"
 const val DB_CHILD_ADMIN = "Admin"
+const val DB_CHILD_APPOINTMENT = "Appointment"
 const val STORAGE_IMAGES = "Images"
 
 //REQUESTS
@@ -30,3 +31,8 @@ const val SECRET_IV = "0b919bhalij28dIV"
 //INTENTS
 const val IMAGE_TYPE = "image/*"
 const val IMAGE_REQUEST_CODE = 420
+
+//STATUS
+enum class STATUS_APP {
+    NACC, ACC, RJCT
+}

@@ -6,17 +6,24 @@ import android.app.TimePickerDialog
 import android.graphics.Color
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.sixgroup.hospitality.R
+import com.sixgroup.hospitality.model.AppointmentModel
 import com.sixgroup.hospitality.model.DokterModel
+import com.sixgroup.hospitality.utils.STATUS_APP
+import com.sixgroup.hospitality.utils.repository.Repository.Companion.addAppointment
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.decryptCBC
+import com.sixgroup.hospitality.utils.repository.Repository.Companion.encryptCBC
+import com.sixgroup.hospitality.utils.repository.Repository.Companion.getCurrentUser
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.getDokterData
 import kotlinx.android.synthetic.main.fragment_create_appointment.*
 import java.text.SimpleDateFormat
@@ -30,6 +37,7 @@ class CreateAppointmentFragment : Fragment() {
     }
 
     private lateinit var dataDokter: ArrayList<DokterModel>
+    private lateinit var idSelected: String
     private val namaDokter = ArrayList<String>()
     private val spDokter = ArrayList<String>()
     private val myCalendar = Calendar.getInstance()
@@ -74,6 +82,9 @@ class CreateAppointmentFragment : Fragment() {
                 ) {
                     val child: TextView = parent!!.getChildAt(0) as TextView
                     child.setTextColor(Color.BLACK)
+                    for (i in dataDokter) {
+                        if (i.nama!!.decryptCBC() == child.text.toString()) idSelected = i.idUser!!
+                    }
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -130,6 +141,7 @@ class CreateAppointmentFragment : Fragment() {
                         override fun onItemSelected(
                             parent: AdapterView<*>?, view: View?, position: Int, id: Long
                         ) {
+                            namaDokter.clear()
                             for (i in dataDokter) {
                                 if (i.spesialis == dataDokter[position].spesialis) {
                                     namaDokter.add(i.nama!!.decryptCBC())
@@ -152,5 +164,31 @@ class CreateAppointmentFragment : Fragment() {
                     }
             }
         }
+        buatAppointmentButton.setOnClickListener {
+            backgroundDark.alpha = 0.7F
+            buatAppointmentButton.isClickable = false
+            addAppointment(getAppointmentModel()).observeForever {
+                backgroundDark.alpha = 0F
+                if (it.success) {
+                    requireActivity().finish()
+                    Toast.makeText(requireContext(), "Sukses menambahkan appointment", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
+    private fun getAppointmentModel() : AppointmentModel {
+        val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.US)
+
+        return AppointmentModel(
+            idAppointment = "",
+            appointmentDate = sdf.format(myCalendar.time).encryptCBC(),
+            complaint = keluhanInput.text.toString().encryptCBC(),
+            status = STATUS_APP.NACC.toString().encryptCBC(),
+            dokter = idSelected,
+            pasien = getCurrentUser(requireContext())!!.idUser!!,
+        )
     }
 }
