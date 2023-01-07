@@ -40,3 +40,6 @@ const val APPOINTMENT_APP_DETAIL = "appt_app_detail"
 enum class STATUS_APP {
     NACC, ACC, RJCT
 }
+
+//NEWS
+const val NEWS = "df796d11fbc5483a873447186bc98f62"
