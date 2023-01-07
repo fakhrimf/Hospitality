@@ -40,6 +40,7 @@ data class DokterModel(
                 if (email!! == i.email!!.decryptCBC() && password!! == i.password!!.decryptCBC()) {
                     check = true
                     storeDokter(context, i)
+                    if (remember) Repository.rememberMeDokter(context, i)
                 }
             }
             liveData.value = check

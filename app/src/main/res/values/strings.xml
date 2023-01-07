@@ -102,6 +102,6 @@
     <string name="input_kode_dokter">Masukkan Kode Dokter</string>
     <string name="dokter_question">Anda Dokter?</string>
     <string name="register_dokter">Register Dokter</string>
-    <string name="password_saat_ini">Password Saat Ini</string>
-    <string name="ubah_password">Ubah Password</string>
+    <string name="placeholder_clock">07:00</string>
+    <string name="appointmentku">Appointmentku</string>
 </resources>

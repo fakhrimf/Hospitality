@@ -37,6 +37,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
+                        android:id="@+id/userImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
@@ -54,7 +55,7 @@
                     app:layout_constraintTop_toTopOf="@+id/cardView7">
 
                     <TextView
-                        android:id="@+id/poster"
+                        android:id="@+id/nama"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/psansreg"
@@ -63,7 +64,7 @@
                         tools:text="Dr. Ammar SKG" />
 
                     <TextView
-                        android:id="@+id/posterlocation"
+                        android:id="@+id/spesialis"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.7"
@@ -94,46 +95,58 @@
                     android:orientation="horizontal"
                     app:layout_constraintTop_toBottomOf="@id/cardView7" />
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider">
 
                     <ImageView
+                        android:id="@+id/kalender"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_calendar" />
+                        android:src="@drawable/ic_calendar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/tanggal"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/psansreg"
                         android:gravity="center"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         android:maxLines="1"
                         android:textColor="@color/white"
+                        app:layout_constraintStart_toEndOf="@+id/kalender"
                         tools:text="Senin, 17 April 2049" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="13dp"
-                        android:src="@drawable/ic_time" />
+                        android:src="@drawable/ic_time"
+                        android:layout_marginEnd="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/waktu"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/waktu"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="8dp"
                         android:fontFamily="@font/psansreg"
-                        android:gravity="center"
                         android:maxLines="1"
                         android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         tools:text="11:00 - 12:00 AM" />
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
