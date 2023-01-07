@@ -85,7 +85,10 @@ class MyAppointmentRecyclerViewAdapter(
                 for (i in it) {
                     if (item.pasien == i.idUser) selectedPasien = i
                 }
-                Picasso.get().load(selectedPasien.foto).into(holder.userImage)
+                val foto = selectedPasien.foto
+                if (foto != null)
+                    if (foto.isNotEmpty())
+                        Picasso.get().load(foto).into(holder.userImage)
                 holder.nama.text = selectedPasien.nama!!.decryptCBC()
                 holder.tanggal.text =
                     sdf.format(sdfget.parse(item.appointmentDate!!.decryptCBC())!!)
