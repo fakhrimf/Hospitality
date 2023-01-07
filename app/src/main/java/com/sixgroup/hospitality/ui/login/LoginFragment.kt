@@ -19,6 +19,7 @@ import com.sixgroup.hospitality.model.PasienModel
 import com.sixgroup.hospitality.utils.APP_SHARED_PREFERENCE
 import com.sixgroup.hospitality.utils.repository.Repository
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.getRememberMe
+import com.sixgroup.hospitality.utils.repository.Repository.Companion.getRememberMeDokter
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.removeDokterSP
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.removePasienSP
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -54,7 +55,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun init() {
-        if (getRememberMe(requireContext()) != null) {
+        if (getRememberMe(requireContext()) != null || getRememberMeDokter(requireContext()) != null) {
             startActivity(Intent(requireContext(), HomeActivity::class.java))
             requireActivity().finish()
         }

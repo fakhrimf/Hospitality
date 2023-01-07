@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -13,6 +14,7 @@ import com.sixgroup.hospitality.MyAppointmentActivity
 import com.sixgroup.hospitality.databinding.FragmentHomeBinding
 import com.sixgroup.hospitality.ui.appointment.CreateAppointmentActivity
 import com.sixgroup.hospitality.ui.home.placeholder.PlaceholderContent
+import com.sixgroup.hospitality.utils.repository.Repository.Companion.getCurrentUser
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
@@ -53,6 +55,10 @@ class HomeFragment : Fragment() {
         }
         fab.setOnClickListener {
             startActivity(Intent(requireContext(), CreateAppointmentActivity::class.java))
+        }
+        if (getCurrentUser(requireContext()) == null) {
+            fab.isVisible = false
+            fab.isClickable = false
         }
         cvMyAppointment.setOnClickListener {
             startActivity(Intent(requireContext(), MyAppointmentActivity::class.java))

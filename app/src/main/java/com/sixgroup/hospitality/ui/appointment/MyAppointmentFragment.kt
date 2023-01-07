@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sixgroup.hospitality.R
 import com.sixgroup.hospitality.model.AppointmentModel
+import com.sixgroup.hospitality.utils.repository.Repository.Companion.getAppointmentDokter
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.getAppointmentPasien
+import com.sixgroup.hospitality.utils.repository.Repository.Companion.getCurrentDokter
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.getCurrentUser
 import kotlinx.android.synthetic.main.fragment_myappointment.*
 
@@ -37,10 +39,17 @@ class MyAppointmentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getAppointmentPasien(getCurrentUser(requireContext())!!).observeForever {
-            listAppointment = it
-            list.adapter = MyAppointmentRecyclerViewAdapter(listAppointment)
+        if (getCurrentUser(requireContext()) == null) {
+            getAppointmentDokter(getCurrentDokter(requireContext())!!).observeForever {
+                listAppointment = it
+                list.adapter = MyAppointmentRecyclerViewAdapter(listAppointment, true)
+            }
+        } else {
+            getAppointmentPasien(getCurrentUser(requireContext())!!).observeForever {
+                listAppointment = it
+                list.adapter = MyAppointmentRecyclerViewAdapter(listAppointment, false)
+            }
+            list.layoutManager = LinearLayoutManager(requireContext())
         }
-        list.layoutManager = LinearLayoutManager(requireContext())
     }
 }

@@ -82,6 +82,26 @@ class Repository {
             else null
         }
 
+        fun rememberMeDokter(context: Context, dokterModel: DokterModel) {
+            val sharedPref = context.getSharedPreferences(
+                APP_SHARED_PREFERENCE, Context.MODE_PRIVATE
+            )
+            val editor = sharedPref.edit()
+            val gson = Gson()
+            val json = gson.toJson(dokterModel) as String
+            editor.putString(PASIEN_RM_SHARED_PREFERENCE, json)
+            editor.apply()
+        }
+
+        fun getRememberMeDokter(context: Context): PasienModel? {
+            val gson = Gson()
+            val profileJson = context.getSharedPreferences(
+                APP_SHARED_PREFERENCE, Context.MODE_PRIVATE
+            ).getString(PASIEN_RM_SHARED_PREFERENCE, null)
+            return if (profileJson != null) gson.fromJson(profileJson, PasienModel::class.java)
+            else null
+        }
+
         fun storeDokter(context: Context, dokterModel: DokterModel) {
             val sharedPref = context.getSharedPreferences(
                 APP_SHARED_PREFERENCE, Context.MODE_PRIVATE
