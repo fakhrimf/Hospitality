@@ -47,6 +47,7 @@ class ChangePasswordFragment : Fragment() {
             val dokter = getCurrentDokter(requireContext())
             val pasien = getCurrentUser(requireContext())
 
+            if (!isEmpty())
             if (pasien != null) {
                 if (passwordLama.toString() == pasien.password!!.decryptCBC()) {
                     if (passwordBaru.toString() == konfirmPass.toString()) {
@@ -74,6 +75,11 @@ class ChangePasswordFragment : Fragment() {
                     }
                 }
             }
+            else Toast.makeText(requireContext(), "Input tidak boleh kosong", Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun isEmpty(): Boolean {
+        return passwordInput.text.toString().isEmpty() || passwordInputBaru.text.toString().isEmpty() || passwordInputKonfirm.text.toString().isEmpty()
     }
 }
