@@ -27,7 +27,6 @@ class MyAppointmentFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[MyAppointmentViewModel::class.java]
-        // TODO: Use the ViewModel
     }
 
     override fun onCreateView(
@@ -40,14 +39,17 @@ class MyAppointmentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (getCurrentUser(requireContext()) == null) {
-            getAppointmentDokter(getCurrentDokter(requireContext())!!).observeForever {
+            val i = getAppointmentDokter(getCurrentDokter(requireContext())!!)
+            i.observeForever {
                 listAppointment = it
-                list.adapter = MyAppointmentRecyclerViewAdapter(listAppointment, true, context)
+                if (list != null)
+                    list.adapter = MyAppointmentRecyclerViewAdapter(listAppointment, true, context)
             }
         } else {
             getAppointmentPasien(getCurrentUser(requireContext())!!).observeForever {
                 listAppointment = it
-                list.adapter = MyAppointmentRecyclerViewAdapter(listAppointment, false, context)
+                if (list != null)
+                    list.adapter = MyAppointmentRecyclerViewAdapter(listAppointment, false, context)
             }
             list.layoutManager = LinearLayoutManager(requireContext())
         }

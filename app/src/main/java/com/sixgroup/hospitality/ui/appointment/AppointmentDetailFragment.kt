@@ -77,7 +77,9 @@ class AppointmentDetailFragment : Fragment() {
             namaDetail.text = pasien.nama!!.decryptCBC()
             spesialisDetail.text = pasien.noHP!!.decryptCBC()
             yoeDetail.text = pasien.email!!.decryptCBC()
-            Picasso.get().load(pasien.foto!!).into(imgUser)
+            val foto = pasien.foto
+            if (foto != null && foto.isNotEmpty())
+                Picasso.get().load(pasien.foto!!).into(imgUser)
             jadwalDetail.text = sdf.format(parsed) + "\nJam " + sdftime.format(parsed)
             keluhanUser.text = apt.complaint!!.decryptCBC()
             cvAcc.visibility = View.VISIBLE
