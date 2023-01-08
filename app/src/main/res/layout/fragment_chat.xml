@@ -8,21 +8,11 @@
     android:background="@color/background"
     tools:context=".ui.chat.ChatFragment">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:src="@drawable/ic_back"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -30,7 +20,6 @@
             android:id="@+id/cardView7"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_margin="16dp"
             app:cardBackgroundColor="@color/accent"
             app:cardCornerRadius="1000dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -38,6 +27,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:id="@+id/imgUser"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -45,17 +35,17 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/titleNama"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:fontFamily="@font/psansbold"
-            tools:text="Dr. Ammar SKG"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/cardView7"
             app:layout_constraintStart_toEndOf="@+id/cardView7"
-            app:layout_constraintTop_toTopOf="@+id/cardView7" />
+            app:layout_constraintTop_toTopOf="@+id/cardView7"
+            tools:text="Dr. Ammar SKG" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
@@ -87,14 +77,20 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <EditText
+            android:id="@+id/inputChat"
             android:layout_width="0dp"
-            android:layout_marginStart="10dp"
+            android:textColorHint="@color/gray"
+            android:textColor="@color/black"
+            android:inputType="text"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_weight="2"
             android:fontFamily="@font/psansreg"
             tools:hint="Chat dengan Dokter Ammar SKG" />
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cvSend"
+            android:foreground="?android:selectableItemBackground"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_margin="10dp"

@@ -13,12 +13,10 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.storage.FirebaseStorage
 import com.google.gson.Gson
-import com.sixgroup.hospitality.model.AdminModel
-import com.sixgroup.hospitality.model.AppointmentModel
-import com.sixgroup.hospitality.model.DokterModel
-import com.sixgroup.hospitality.model.PasienModel
+import com.sixgroup.hospitality.model.*
 import com.sixgroup.hospitality.utils.*
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
@@ -249,6 +247,40 @@ class Repository {
                         liveData.value = DatabaseMessageModel(true, DB_SET_VALUE_SUCCESS)
                     }
                 }
+            return liveData
+        }
+
+        fun addChat(appointmentModel: AppointmentModel, chatModel: ChatModel): MutableLiveData<DatabaseMessageModel> {
+            val liveData = MutableLiveData<DatabaseMessageModel>()
+            chatModel.idchat = "${reference.push().key}"
+            getChild(DB_CHILD_CHAT).child(appointmentModel.idAppointment!!).child(chatModel.idchat!!)
+                .setValue(chatModel) { error, _ ->
+                    if (error != null) {
+                        liveData.value = DatabaseMessageModel(false, error.message)
+                    } else {
+                        liveData.value = DatabaseMessageModel(true, DB_SET_VALUE_SUCCESS)
+                    }
+                }
+            return liveData
+        }
+
+        fun getChat(appointmentModel: AppointmentModel) : MutableLiveData<ArrayList<ChatModel>> {
+            val liveData = MutableLiveData<ArrayList<ChatModel>>()
+            val list = ArrayList<ChatModel>()
+            getChild(DB_CHILD_CHAT).child(appointmentModel.idAppointment!!).addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    list.clear()
+                    for (data in snapshot.children) {
+                        val model = data.getValue(ChatModel::class.java)
+                        model?.let { list.add(it) }
+                    }
+                    liveData.value = list
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    throw Throwable(error.message)
+                }
+            })
             return liveData
         }
 

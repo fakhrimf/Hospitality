@@ -1,15 +1,20 @@
 package com.sixgroup.hospitality.ui.appointment
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.ViewModelProvider
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.google.gson.Gson
 import com.sixgroup.hospitality.AppointmentDetailActivity
+import com.sixgroup.hospitality.ChatActivity
 import com.sixgroup.hospitality.R
+import com.sixgroup.hospitality.utils.APPOINTMENT_APP_DETAIL
+import com.sixgroup.hospitality.utils.APPOINTMENT_PAS_DETAIL
 import com.sixgroup.hospitality.utils.STATUS_APP
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.accApt
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.decryptCBC
@@ -61,6 +66,18 @@ class AppointmentDetailFragment : Fragment() {
             Picasso.get().load(dokter.foto!!).into(imgUser)
             jadwalDetail.text = sdf.format(parsed) + "\nJam " + sdftime.format(parsed)
             keluhanUser.text = apt.complaint!!.decryptCBC()
+            cvChat.setOnClickListener {
+                val intent = Intent(context, ChatActivity::class.java)
+                intent.putExtra(
+                    APPOINTMENT_PAS_DETAIL,
+                    Gson().toJson(dokter) as String
+                )
+                intent.putExtra(
+                    APPOINTMENT_APP_DETAIL,
+                    Gson().toJson(apt) as String
+                )
+                startActivity(intent)
+            }
             when (apt.status!!.decryptCBC()) {
                 STATUS_APP.ACC.toString() -> {
                     statusDetail.text = "Status : Accepted"
@@ -113,6 +130,18 @@ class AppointmentDetailFragment : Fragment() {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
                     }
                 }
+            }
+            cvChat.setOnClickListener {
+                val intent = Intent(context, ChatActivity::class.java)
+                intent.putExtra(
+                    APPOINTMENT_PAS_DETAIL,
+                    Gson().toJson(pasien) as String
+                )
+                intent.putExtra(
+                    APPOINTMENT_APP_DETAIL,
+                    Gson().toJson(apt) as String
+                )
+                startActivity(intent)
             }
             when (apt.status!!.decryptCBC()) {
                 STATUS_APP.ACC.toString() -> {

@@ -19,6 +19,7 @@ const val DB_CHILD_PASIEN = "Pasien"
 const val DB_CHILD_DOKTER = "Dokter"
 const val DB_CHILD_ADMIN = "Admin"
 const val DB_CHILD_APPOINTMENT = "Appointment"
+const val DB_CHILD_CHAT = "Chat"
 const val STORAGE_IMAGES = "Images"
 
 //REQUESTS
