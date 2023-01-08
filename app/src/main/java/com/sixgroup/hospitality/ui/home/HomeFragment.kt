@@ -66,7 +66,8 @@ class HomeFragment : Fragment() {
                 Log.d("FINDTHIS", "onResponse: ${response.code()}")
                 if (response.body() != null)
                     liveData.value = response.body()
-                spin_kit.visibility = View.GONE
+                if (spin_kit != null)
+                    spin_kit.visibility = View.GONE
                 Log.d("TAG", "onResponse: ${response.body()}")
             }
 
