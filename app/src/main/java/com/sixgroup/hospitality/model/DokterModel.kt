@@ -126,19 +126,87 @@ data class DokterModel(
     }
 
     fun editProfil(
-        nama: String = this.nama!!,
-        spesialis: String = this.spesialis!!,
-        yoe: Int = this.yoe!!,
-        email: String = this.email!!,
-        foto: String = this.foto!!,
-        password: String = this.password!!,
-    ) {
+        nama: String? = this.nama,
+        spesialis: String? = this.spesialis,
+        yoe: Int? = this.yoe,
+        email: String? = this.email,
+        foto: String? = this.foto,
+        password: String? = this.password,
+        path: Uri? = null,
+        context: Context,
+    ) : MutableLiveData<DatabaseMessageModel> {
         this.nama = nama
         this.spesialis = spesialis
         this.yoe = yoe
         this.email = email
         this.foto = foto
         this.password = password
+        val liveData = MutableLiveData<DatabaseMessageModel>()
+        idUser = "${Repository.reference.push().key}"
+        val ref = Repository.storageReference.child(STORAGE_IMAGES).child(idUser!!)
+        getChild(DB_CHILD_DOKTER).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                liveData.value = DatabaseMessageModel(false, p0.message)
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                var dupe = false
+                for (i in p0.children) {
+                    val model = i.getValue(DokterModel::class.java)
+                    if (model?.email == email) {
+                        dupe = true
+                        liveData.value = DatabaseMessageModel(
+                            false, context.getString(R.string.email_registered)
+                        )
+                        break
+                    }
+                }
+                if (!dupe) {
+                    if (path != null) {
+                        ref.putFile(path).apply {
+                            addOnSuccessListener {
+                                ref.downloadUrl.apply {
+                                    addOnSuccessListener {
+                                        this@DokterModel.foto = it.toString()
+                                        liveData.value =
+                                            DatabaseMessageModel(true, DB_SET_VALUE_SUCCESS)
+                                        storeDokter(context, this@DokterModel)
+                                        getChild(DB_CHILD_DOKTER).child(idUser!!)
+                                            .setValue(this@DokterModel) { error, _ ->
+                                                if (error != null) {
+                                                    liveData.value = DatabaseMessageModel(
+                                                        false,
+                                                        error.message
+                                                    )
+                                                }
+                                            }
+                                    }
+                                    addOnFailureListener {
+                                        liveData.value =
+                                            DatabaseMessageModel(false, "${it.message}")
+                                    }
+                                }
+                            }
+                            addOnFailureListener {
+                                liveData.value = DatabaseMessageModel(false, "${it.message}")
+                            }
+                        }
+                    } else {
+                        getChild(DB_CHILD_DOKTER).child(idUser!!)
+                            .setValue(this@DokterModel) { error, _ ->
+                                if (error != null) {
+                                    liveData.value = DatabaseMessageModel(false, error.message)
+                                } else {
+                                    liveData.value =
+                                        DatabaseMessageModel(true, DB_SET_VALUE_SUCCESS)
+                                    storeDokter(context, this@DokterModel)
+                                }
+                            }
+                    }
+                }
+            }
+        })
+        return liveData
     }
 
 }

@@ -48,11 +48,11 @@ class SplashFragment : Fragment() {
     }
 
     private val mRunnable = Runnable {
-        if (!model || model2 != null) {
-            startActivity(Intent(requireContext(), OnboardActivity::class.java))
+        if (model || model2 != null) {
+            startActivity(Intent(requireContext(), LoginActivity::class.java))
             requireActivity().finish()
         } else {
-            startActivity(Intent(requireContext(), LoginActivity::class.java))
+            startActivity(Intent(requireContext(), OnboardActivity::class.java))
             requireActivity().finish()
         }
     }

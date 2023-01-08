@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.sixgroup.hospitality.ChangePasswordActivity
 import com.sixgroup.hospitality.LoginActivity
 import com.sixgroup.hospitality.R
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.decryptCBC
@@ -63,6 +64,9 @@ class MyAccountFragment : Fragment() {
                 requireActivity().finish()
                 Toast.makeText(requireContext(), "Logout berhasil!", Toast.LENGTH_LONG).show()
             }
+            linearLayoutgp.setOnClickListener {
+                startActivity(Intent(requireContext(), ChangePasswordActivity::class.java))
+            }
         } else if (modelDokter != null) {
             val picasso = Picasso.get()
             picasso.setIndicatorsEnabled(true)
@@ -74,6 +78,9 @@ class MyAccountFragment : Fragment() {
                 startActivity(Intent(requireContext(), LoginActivity::class.java))
                 requireActivity().finish()
                 Toast.makeText(requireContext(), "Logout berhasil!", Toast.LENGTH_LONG).show()
+            }
+            linearLayoutgp.setOnClickListener {
+                startActivity(Intent(requireContext(), ChangePasswordActivity::class.java))
             }
         }
     }

@@ -64,12 +64,18 @@ class AppointmentDetailFragment : Fragment() {
             when (apt.status!!.decryptCBC()) {
                 STATUS_APP.ACC.toString() -> {
                     statusDetail.text = "Status : Accepted"
+                    cvAcc.visibility = View.GONE
+                    rejectBtn.visibility = View.GONE
                 }
                 STATUS_APP.RJCT.toString() -> {
                     statusDetail.text = "Status : Rejected"
+                    cvAcc.visibility = View.GONE
+                    rejectBtn.visibility = View.GONE
+                    cvChat.visibility = View.GONE
                 }
                 else -> {
                     statusDetail.text = "Status : Pending"
+                    cvChat.visibility = View.GONE
                 }
             }
         } else if (pasien != null && apt != null) {
@@ -114,9 +120,11 @@ class AppointmentDetailFragment : Fragment() {
                 }
                 STATUS_APP.RJCT.toString() -> {
                     statusDetail.text = "Status : Rejected"
+                    cvChat.visibility = View.GONE
                 }
                 else -> {
                     statusDetail.text = "Status : Pending"
+                    cvChat.visibility = View.GONE
                 }
             }
         }

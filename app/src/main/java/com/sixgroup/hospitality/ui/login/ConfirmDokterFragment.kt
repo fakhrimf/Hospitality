@@ -22,7 +22,6 @@ class ConfirmDokterFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ConfirmDokterViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
     override fun onCreateView(
@@ -35,6 +34,7 @@ class ConfirmDokterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         confirm_button.setOnClickListener {
             startActivity(Intent(requireContext(), RegisterDokterActivity::class.java))
+            requireActivity().finish()
         }
     }
 }
