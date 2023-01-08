@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.sixgroup.hospitality.AppointmentDetailActivity
 import com.sixgroup.hospitality.ChatActivity
 import com.sixgroup.hospitality.R
@@ -51,28 +53,45 @@ class ChatFragment : Fragment() {
         val dokter = act.getDokter()
         val pasien = act.getPasien()
         val apt = act.getAppt()
+        var itemcount = 0
         if (dokter != null && apt != null) {
             titleNama.text = dokter.nama!!.decryptCBC()
             inputChat.hint = "Chat dengan ${dokter.nama!!.decryptCBC()}"
             Picasso.get().load(dokter.foto).into(imgUser)
             getChat(apt).observeForever {
-
+                val layoutmgr = LinearLayoutManager(context)
+                layoutmgr.stackFromEnd = true
+                val adapter = ChatRecyclerViewAdapter(it, context)
+                if (list != null) {
+                    list.layoutManager = layoutmgr
+                    list.adapter = adapter
+                    if (itemcount != 0)
+                        list.smoothScrollToPosition(adapter.itemCount-1)
+                }
             }
             cvSend.setOnClickListener {
-                addChat(apt, getChatModel(dokter.idUser!!))
+                if (inputChat.text.isNotEmpty())
+                    addChat(apt, getChatModel(dokter.idUser!!))
                 inputChat.text.clear()
             }
-
         } else if (pasien != null && apt != null) {
             titleNama.text = pasien.nama!!.decryptCBC()
             inputChat.hint = "Chat dengan ${pasien.nama!!.decryptCBC()}"
             Picasso.get().load(pasien.foto).into(imgUser)
             getChat(apt).observeForever {
-                if (list != null)
-                    list.adapter = ChatRecyclerViewAdapter(it, context)
+                val layoutmgr = LinearLayoutManager(context)
+                layoutmgr.stackFromEnd = true
+                val adapter = ChatRecyclerViewAdapter(it, context)
+                if (list != null) {
+                    list.layoutManager = layoutmgr
+                    list.adapter = adapter
+                    if (itemcount != 0)
+                        list.smoothScrollToPosition(adapter.itemCount-1)
+                }
             }
             cvSend.setOnClickListener {
-                addChat(apt, getChatModel(pasien.idUser!!))
+                if (inputChat.text.isNotEmpty())
+                    addChat(apt, getChatModel(pasien.idUser!!))
                 inputChat.text.clear()
             }
         }

@@ -1,6 +1,7 @@
 package com.sixgroup.hospitality.ui.scanqr
 
 import android.Manifest.permission.CAMERA
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
+import com.sixgroup.hospitality.PaymentActivity
 import com.sixgroup.hospitality.R
 import com.sixgroup.hospitality.utils.CAMERA_REQUEST_CODE
 import kotlinx.android.synthetic.main.fragment_scan_qr.*
@@ -46,7 +48,8 @@ class ScanQRFragment : Fragment() {
         codeScanner.camera = CodeScanner.CAMERA_BACK
         codeScanner.decodeCallback = DecodeCallback {
             activity.runOnUiThread {
-                Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show()
+//                Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show()
+                startActivity(Intent(requireContext(), PaymentActivity::class.java))
             }
         }
         scanner.setOnClickListener {

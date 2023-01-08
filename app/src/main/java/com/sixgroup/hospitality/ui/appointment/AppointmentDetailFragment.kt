@@ -61,7 +61,7 @@ class AppointmentDetailFragment : Fragment() {
         if (dokter != null && apt != null) {
             val parsed = sdfget.parse(apt.appointmentDate!!.decryptCBC())!!
             namaDetail.text = dokter.nama!!.decryptCBC()
-            spesialisDetail.text = dokter.spesialis!!.decryptCBC()
+            spesialisDetail.text = "Dokter " + dokter.spesialis!!.decryptCBC()
             yoeDetail.text = "Pengalaman : " + dokter.yoe.toString() + " Tahun"
             Picasso.get().load(dokter.foto!!).into(imgUser)
             jadwalDetail.text = sdf.format(parsed) + "\nJam " + sdftime.format(parsed)

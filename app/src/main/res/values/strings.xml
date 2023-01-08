@@ -109,4 +109,6 @@
     <string name="chat">Chat</string>
     <string name="ubah_password">Ubah Password</string>
     <string name="password_saat_ini">Password Saat Ini</string>
+    <string name="total_biaya">Total Biaya</string>
+    <string name="bayar_menggunakan">Bayar Menggunakan</string>
 </resources>

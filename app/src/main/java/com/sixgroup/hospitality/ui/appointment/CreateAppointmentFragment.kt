@@ -3,6 +3,7 @@ package com.sixgroup.hospitality.ui.appointment
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.graphics.Color
 import android.icu.util.Calendar
 import android.os.Bundle
@@ -17,6 +18,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.sixgroup.hospitality.R
+import com.sixgroup.hospitality.SuccessAppointmentActivity
 import com.sixgroup.hospitality.model.AppointmentModel
 import com.sixgroup.hospitality.model.DokterModel
 import com.sixgroup.hospitality.utils.STATUS_APP
@@ -171,7 +173,7 @@ class CreateAppointmentFragment : Fragment() {
                 backgroundDark.alpha = 0F
                 if (it.success) {
                     requireActivity().finish()
-                    Toast.makeText(requireContext(), "Sukses menambahkan appointment", Toast.LENGTH_LONG).show()
+                    startActivity(Intent(requireContext(), SuccessAppointmentActivity::class.java))
                 } else {
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
                 }

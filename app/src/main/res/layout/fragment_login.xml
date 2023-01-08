@@ -223,6 +223,7 @@
         android:fontFamily="@font/psansreg"
         android:text="@string/hint_register"
         android:textColor="@color/white"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
 
@@ -234,6 +235,7 @@
         android:padding="10dp"
         android:text="@string/register"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/textView6"
         app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toTopOf="@+id/textView6" />
@@ -242,10 +244,10 @@
         android:id="@+id/backgroundDark"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:translationZ="100dp"
         android:alpha="0"
-        android:background="@color/black">
+        android:background="@color/black"
+        android:orientation="vertical"
+        android:translationZ="100dp">
 
         <com.github.ybq.android.spinkit.SpinKitView
             android:id="@+id/spin_kit"

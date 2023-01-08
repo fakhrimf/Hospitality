@@ -1,11 +1,18 @@
 package com.sixgroup.hospitality.ui.appointment
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sixgroup.hospitality.R
+import com.sixgroup.hospitality.utils.backgroundFadeInDuration
+import com.sixgroup.hospitality.utils.titleFadeInDuration
+import kotlinx.android.synthetic.main.fragment_success_appointment.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,6 +37,36 @@ class SuccessAppointmentFragment : Fragment() {
         }
     }
 
+    private val mRunnable = Runnable {
+        requireActivity().finish()
+    }
+    private val mHandler = Handler(Looper.getMainLooper())
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        background.apply {
+            alpha = 0f
+            visibility = View.VISIBLE
+            animate().apply {
+                alpha(1f)
+                duration = backgroundFadeInDuration
+            }
+        }
+        icon.apply {
+            alpha = 0f
+            visibility = View.VISIBLE
+            animate().apply {
+                alpha(1f)
+                duration = titleFadeInDuration
+                setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        mHandler.postDelayed(mRunnable, titleFadeInDuration)
+                    }
+                })
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,12 +86,7 @@ class SuccessAppointmentFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SuccessAppointmentFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance() =
+            SuccessAppointmentFragment()
     }
 }
