@@ -107,4 +107,6 @@
     <string name="jadwal_pertemuan">Jadwal Pertemuan</string>
     <string name="keluhan_title">Keluhan</string>
     <string name="chat">Chat</string>
+    <string name="ubah_password">Ubah Password</string>
+    <string name="password_saat_ini">Password Saat Ini</string>
 </resources>
