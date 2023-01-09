@@ -174,11 +174,11 @@ class EditProfileFragment : Fragment() {
         }
         if (namaInputEdit.text.toString().isEmpty()) {
             check = true
-            emailInputEditProfil.error = "Nama Kosong!"
+            namaInputEdit.error = "Nama Kosong!"
         }
         if (phoneInputEdit.text.toString().isEmpty()) {
             check = true
-            emailInputEditProfil.error = "Nomor Kosong!"
+            phoneInputEdit.error = "Nomor Kosong!"
         }
         return check
     }
