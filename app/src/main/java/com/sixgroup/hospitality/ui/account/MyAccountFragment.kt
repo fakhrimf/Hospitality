@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.sixgroup.hospitality.ChangePasswordActivity
+import com.sixgroup.hospitality.EditProfileActivity
 import com.sixgroup.hospitality.LoginActivity
 import com.sixgroup.hospitality.R
 import com.sixgroup.hospitality.utils.repository.Repository.Companion.decryptCBC
@@ -67,6 +68,9 @@ class MyAccountFragment : Fragment() {
             linearLayoutgp.setOnClickListener {
                 startActivity(Intent(requireContext(), ChangePasswordActivity::class.java))
             }
+            linearLayoutEdit.setOnClickListener {
+                startActivity(Intent(requireContext(), EditProfileActivity::class.java))
+            }
         } else if (modelDokter != null) {
             val picasso = Picasso.get()
             picasso.setIndicatorsEnabled(true)
@@ -81,6 +85,9 @@ class MyAccountFragment : Fragment() {
             }
             linearLayoutgp.setOnClickListener {
                 startActivity(Intent(requireContext(), ChangePasswordActivity::class.java))
+            }
+            linearLayoutEdit.setOnClickListener {
+                startActivity(Intent(requireContext(), EditProfileActivity::class.java))
             }
         }
     }

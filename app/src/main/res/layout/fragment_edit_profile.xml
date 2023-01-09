@@ -116,9 +116,10 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/alamat_Email"
                     android:padding="10dp"
-                    android:textColorHint="@color/black"
+                    android:textColorHint="@color/gray"
                     app:boxStrokeWidth="0dp"
                     app:boxStrokeWidthFocused="0dp"
+                    app:hintEnabled="true"
                     app:hintTextColor="@color/accent">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -128,7 +129,7 @@
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/psansreg"
                         android:inputType="textEmailAddress"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/black" />
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.cardview.widget.CardView>
 
@@ -148,9 +149,10 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_nama"
                     android:padding="10dp"
-                    android:textColorHint="@color/black"
+                    android:textColorHint="@color/gray"
                     app:boxStrokeWidth="0dp"
                     app:boxStrokeWidthFocused="0dp"
+                    app:hintEnabled="true"
                     app:hintTextColor="@color/accent">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -160,7 +162,7 @@
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/psansreg"
                         android:inputType="text"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/black" />
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.cardview.widget.CardView>
 
@@ -176,13 +178,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/cardView1">
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/nohplayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/nomor_telepon"
                     android:padding="10dp"
-                    android:textColorHint="@color/black"
+                    android:textColorHint="@color/gray"
                     app:boxStrokeWidth="0dp"
                     app:boxStrokeWidthFocused="0dp"
+                    app:hintEnabled="true"
                     app:hintTextColor="@color/accent">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -192,100 +196,46 @@
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/psansreg"
                         android:inputType="number"
-                        android:textColor="@color/white" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView2">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/jenis_Kelamin"
-                    android:padding="10dp"
-                    android:textColorHint="@color/black"
-                    app:boxStrokeWidth="0dp"
-                    app:boxStrokeWidthFocused="0dp"
-                    app:hintTextColor="@color/accent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/genderInputEdit"
-                        android:layout_width="match_parent"
-                        android:layout_height="32dp"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:cursorVisible="false"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:fontFamily="@font/psansreg"
-                        android:textColor="@color/white" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <Spinner
-                    android:id="@+id/spinner_dokterSpesialis"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="15dp"
-                    android:spinnerMode="dropdown" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView3">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_tgl_lahir"
-                    android:padding="10dp"
-                    android:textColorHint="@color/black"
-                    app:boxStrokeWidth="0dp"
-                    app:boxStrokeWidthFocused="0dp"
-                    app:hintTextColor="@color/accent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/birthInputEdit"
-                        android:layout_width="match_parent"
-                        android:layout_height="32dp"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:cursorVisible="false"
-                        android:focusable="false"
-                        android:fontFamily="@font/psansreg"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/black" />
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.cardview.widget.CardView>
 
             <Button
-                android:id="@+id/buatAppointmentButton"
+                android:id="@+id/editprofilebutton"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:layout_marginStart="70dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="70dp"
-                android:layout_marginTop="50dp"
                 android:backgroundTint="@color/accent"
                 android:fontFamily="@font/psansreg"
                 android:text="@string/perbarui_Profil"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView4" />
+                app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/backgroundDark"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0"
+                android:background="@color/black"
+                android:orientation="vertical"
+                android:translationZ="100dp">
+
+                <com.github.ybq.android.spinkit.SpinKitView
+                    android:id="@+id/spin_kit"
+                    style="@style/SpinKitView.Large.ThreeBounce"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:SpinKit_Color="@color/accent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
