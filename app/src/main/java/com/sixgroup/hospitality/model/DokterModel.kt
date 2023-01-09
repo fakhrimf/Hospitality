@@ -114,14 +114,6 @@ data class DokterModel(
         return liveData
     }
 
-    fun acceptAppointment() {
-        TODO("Fungsi accept appointment disini")
-    }
-
-    fun viewAppointment() {
-        TODO("Fungsi view appointment")
-    }
-
     fun editProfil(
         nama: String? = this.nama,
         spesialis: String? = this.spesialis,
@@ -135,7 +127,6 @@ data class DokterModel(
         this.nama = nama
         this.spesialis = spesialis
         this.yoe = yoe
-        this.email = email
         this.foto = foto
         this.password = password
         val liveData = MutableLiveData<DatabaseMessageModel>()
@@ -147,7 +138,21 @@ data class DokterModel(
             }
 
             override fun onDataChange(p0: DataSnapshot) {
+                var dupe = false
+                for (i in p0.children) {
+                    val model = i.getValue(DokterModel::class.java)
+                    if (email != this@DokterModel.email)
+                    if (model?.email == email) {
+                        dupe = true
+                        liveData.value = DatabaseMessageModel(
+                            false, context.getString(R.string.email_registered)
+                        )
+                        break
+                    }
+                }
+                if (!dupe)
                 if (path != null) {
+                    this@DokterModel.email = email
                     ref.putFile(path).apply {
                         addOnSuccessListener {
                             ref.downloadUrl.apply {
@@ -175,6 +180,7 @@ data class DokterModel(
                         }
                     }
                 } else {
+                    this@DokterModel.email = email
                     getChild(DB_CHILD_DOKTER).child(idUser!!)
                         .setValue(this@DokterModel) { error, _ ->
                             if (error != null) {

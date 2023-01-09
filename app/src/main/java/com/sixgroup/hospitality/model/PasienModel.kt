@@ -31,7 +31,11 @@ data class PasienModel(
     override var foto: String? = "",
 ) : UserModel() {
 
-    override fun login(context: Context, lifecycleOwner: LifecycleOwner, remember: Boolean): MutableLiveData<Boolean> {
+    override fun login(
+        context: Context,
+        lifecycleOwner: LifecycleOwner,
+        remember: Boolean
+    ): MutableLiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         var check = false
         getPasienData().observe(lifecycleOwner, Observer<ArrayList<PasienModel>> {
@@ -128,7 +132,6 @@ data class PasienModel(
         this.noHP = noHP
         this.tglLahir = tglLahir
         this.password = password
-        this.email = email
         this.foto = foto
         val ref = storageReference.child(STORAGE_IMAGES).child(idUser!!)
         val liveData = MutableLiveData<DatabaseMessageModel>()
@@ -138,7 +141,19 @@ data class PasienModel(
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-                if (path != null) {
+                var dupe = false
+                for (i in p0.children) {
+                    val model = i.getValue(DokterModel::class.java)
+                    if (email != this@PasienModel.email) if (model?.email == email) {
+                        dupe = true
+                        liveData.value = DatabaseMessageModel(
+                            false, context.getString(R.string.email_registered)
+                        )
+                        break
+                    }
+                }
+                if (!dupe) if (path != null) {
+                    this@PasienModel.email = email
                     ref.putFile(path).apply {
                         addOnSuccessListener {
                             ref.downloadUrl.apply {
@@ -165,6 +180,7 @@ data class PasienModel(
                         }
                     }
                 } else {
+                    this@PasienModel.email = email
                     getChild(DB_CHILD_PASIEN).child(idUser!!)
                         .setValue(this@PasienModel) { error, _ ->
                             if (error != null) {
