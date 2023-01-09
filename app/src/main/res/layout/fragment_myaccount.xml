@@ -128,58 +128,6 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
-                    <!--                    Start of Profil Akun Saya -->
-                    <ImageView
-                        android:id="@+id/imageView7"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_margin="12dp"
-                        android:padding="5dp"
-                        android:src="@drawable/ic_person"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <LinearLayout
-                        android:id="@+id/linearLayout2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
-                        app:layout_constraintEnd_toStartOf="@+id/imageView8"
-                        app:layout_constraintStart_toEndOf="@+id/imageView7"
-                        app:layout_constraintTop_toTopOf="@+id/imageView7">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/psansbold"
-                            android:text="@string/my_profile"
-                            android:textColor="@color/white" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:alpha="0.5"
-                            android:fontFamily="@font/psansreg"
-                            android:text="@string/my_profile_helper"
-                            android:textColor="@color/white"
-                            android:textSize="11sp" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/imageView8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        android:src="@drawable/ic_forward"
-                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
-
-                    <!--                    End of Profil Akun Saya-->
                     <!--                    Start of Edit Profil-->
 
                     <ImageView
@@ -190,7 +138,7 @@
                         android:padding="5dp"
                         android:src="@drawable/ic_person"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/imageView7" />
+                        app:layout_constraintTop_toTopOf="parent"/>
 
                     <LinearLayout
                         android:id="@+id/linearLayoutEdit"
