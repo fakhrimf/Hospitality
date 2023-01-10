@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "852608819172",
+    "firebase_url": "https://hospitality-sixgroup-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "hospitality-sixgroup",
+    "storage_bucket": "hospitality-sixgroup.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:852608819172:android:1100c1f9bd00945d6a71f1",
+        "android_client_info": {
+          "package_name": "com.sixgroup.hospitality"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "852608819172-qpj0svr0q5o095t8p1fkgvovfo6udanm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB22H0AvVIuYlKXKpAK91fomLF8TdCYHd0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "852608819172-qpj0svr0q5o095t8p1fkgvovfo6udanm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -6,11 +6,15 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="black50">#80000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#A3A6A6A6</color>
     <color name="background">#FF151B28</color>
     <color name="edittext_bg">#FF262E3D</color>
     <color name="accent">#FF416165</color>
     <color name="text_btn">#FF416188</color>
-
+    <color name="background_less_dark">#FF0B3948</color>
+    <color name="acced">#00ED33</color>
+    <color name="nacced">#E6D10A</color>
+    <color name="rjct">#AA0606</color>
 </resources>

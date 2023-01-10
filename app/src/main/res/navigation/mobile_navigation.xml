@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.sixgroup.hospitality.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:name="com.sixgroup.hospitality.ui.scanqr.ScanQRFragment"
+        android:label="Scan QR"
+        tools:layout="@layout/fragment_scan_qr" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.sixgroup.hospitality.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:name="com.sixgroup.hospitality.ui.account.MyAccountFragment"
+        android:label="My Account"
+        tools:layout="@layout/fragment_myaccount" />
 </navigation>

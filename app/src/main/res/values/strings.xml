@@ -33,4 +33,82 @@
     <string name="otp_err">OTP tidak masuk?</string>
     <string name="password_baru">Password Baru</string>
     <string name="konfirmasi_password">Konfirmasi Password</string>
+    <string name="appointment_saya">Appointment Saya</string>
+    <string name="username">Username</string>
+    <string name="telephone_placeholder">+62123456789</string>
+    <string name="my_profile">Profil Akun Saya</string>
+    <string name="my_profile_helper">Lihat informasi akun anda</string>
+    <string name="edit_profil">Edit Profil</string>
+    <string name="edit_profil_helper">Kelola akun yang anda simpan</string>
+    <string name="change_password">Ganti Password</string>
+    <string name="change_password_helper">Kelola password akun anda</string>
+    <string name="konfirmasi_akun">Konfirmasi Akun</string>
+    <string name="konfirmasi_akun_helper">Lebih lanjut mengamankan akun anda</string>
+    <string name="log_out">Log Out</string>
+    <string name="logout_helper">Keluar dari akun anda</string>
+    <string name="more">More</string>
+    <string name="keluhan">Masukkan Keluhan Anda</string>
+    <string name="bantuan_dan_masukan">Bantuan dan Masukan</string>
+    <string name="tentang_aplikasi">Tentang Aplikasi</string>
+    <string name="akun">Akun</string>
+    <string name="title_qr">Scan QR</string>
+    <string name="success_appointment">Appointment\nSukses Dibuat</string>
+    <string name="success_payment">Pembayaran\nSukses</string>
+    <string name="email_registered">E-mail sudah diregister sebelumnya</string>
+    <string name="email_error_empty">E-mail tidak boleh kosong</string>
+    <string name="birthdate_error_empty">Tanggal lahir tidak boleh kosong</string>
+    <string name="name_error_empty">Nama tidak boleh kosong</string>
+    <string name="phone_error_empty">Nomor telepon tidak boleh kosong</string>
+    <string name="spesialis_error_empty">Nomor telepon tidak boleh kosong</string>
+    <string name="yoe_error_empty">Nomor telepon tidak boleh kosong</string>
+    <string name="phone_error_char">Nomor telepon tidak valid</string>
+    <string name="password_error_empty">Password tidak boleh kosong</string>
+    <string name="password_error_lessthaneight">Password harus memiliki 8 karakter atau lebih</string>
+    <string name="pilih_Dokter_Spesialis">Pilih Jenis Dokter Spesialis</string>
+    <string name="hari_bulan_tgl">Fri, Apr 13</string>
+    <string name="waktu_Appointment">Waktu Appointment</string>
+    <string name="jam">07 : 00</string>
+    <string name="pembayaran">Pembayaran</string>
+    <string name="nama_Dokter">Dokter Ammer Fath SKG</string>
+    <string name="total_Biaya">Total Biaya</string>
+    <string name="biaya">Rp. 543.000,00-</string>
+    <string name="opsi_Pembayaran">Bayar Menggunakan</string>
+    <string name="dana">Dana</string>
+    <string name="gopay">Gopay</string>
+    <string name="link_Aja">Link Aja!</string>
+    <string name="debit">Debit</string>
+    <string name="nama_Akun">Jaki Patarai</string>
+    <string name="email_Akun">Jakehchan@gmail.com</string>
+    <string name="alamat_Email">Alamat Email</string>
+    <string name="jenis_Kelamin">Jenis Kelamin</string>
+    <string name="perbarui_Profil">Perbarui Profil</string>
+    <string-array name="jenis_Dokter">
+        <item>Gigi</item>
+        <item>Kandungan</item>
+        <item>Kelamin</item>
+        <item>Mata</item>
+        <item>Psikologi</item>
+        <item>THT</item>
+    </string-array>
+    <string-array name="nama_Dokter">
+        <item>Ammer Fath</item>
+        <item>Bobi Fred</item>
+        <item>Gerald</item>
+        <item>Sulistiyan</item>
+    </string-array>
+    <string name="daftar_akun_dokter">Daftar Akun Dokter</string>
+    <string name="tahun_pengalaman">Tahun Pengalaman</string>
+    <string name="spesialis">Spesialis</string>
+    <string name="input_kode_dokter">Masukkan Kode Dokter</string>
+    <string name="dokter_question">Anda Dokter?</string>
+    <string name="register_dokter">Register Dokter</string>
+    <string name="placeholder_clock">07:00</string>
+    <string name="appointmentku">Appointmentku</string>
+    <string name="jadwal_pertemuan">Jadwal Pertemuan</string>
+    <string name="keluhan_title">Keluhan</string>
+    <string name="chat">Chat</string>
+    <string name="ubah_password">Ubah Password</string>
+    <string name="password_saat_ini">Password Saat Ini</string>
+    <string name="total_biaya">Total Biaya</string>
+    <string name="bayar_menggunakan">Bayar Menggunakan</string>
 </resources>
