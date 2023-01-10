@@ -129,8 +129,15 @@ class CreateAppointmentFragment : Fragment() {
                 ).show()
             }
             if (dataDokter.isNotEmpty()) {
-                for (i in dataDokter) {
-                    spDokter.add(i.spesialis!!.decryptCBC())
+                for (i in 0 until dataDokter.size) {
+                    var same = false
+                    for (o in i+1 until dataDokter.size) {
+                        if (dataDokter[i].spesialis == dataDokter[o].spesialis) {
+                            same = true
+                        }
+                    }
+                    if (!same)
+                    spDokter.add(dataDokter[i].spesialis!!.decryptCBC())
                 }
                 val adapter = ArrayAdapter<String>(
                     requireContext(),
@@ -145,7 +152,7 @@ class CreateAppointmentFragment : Fragment() {
                         ) {
                             namaDokter.clear()
                             for (i in dataDokter) {
-                                if (i.spesialis == dataDokter[position].spesialis) {
+                                if (i.spesialis!!.decryptCBC() == spDokter[position]) {
                                     namaDokter.add(i.nama!!.decryptCBC())
                                 }
                             }
