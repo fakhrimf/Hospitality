@@ -70,6 +70,8 @@ class Repository {
             editor.apply()
         }
 
+        // Fungsi untuk acc appointment yang direquest oleh pasien
+        // yang akan mereturn pesan dari database, jika sukses maka akan menampilkan pesan sukses
         fun accApt(
             appointmentModel: AppointmentModel
         ): MutableLiveData<DatabaseMessageModel> {
@@ -86,6 +88,8 @@ class Repository {
             return liveData
         }
 
+        // Fungsi untuk reject appointment yang direquest oleh pasien
+        // yang akan mereturn pesan dari database, jika sukses maka akan menampilkan pesan sukses
         fun rjctApt(
             appointmentModel: AppointmentModel
         ): MutableLiveData<DatabaseMessageModel> {
@@ -167,6 +171,9 @@ class Repository {
             getCurrentUser(context)
         }
 
+        // Fungsi untuk mengambil data pasien dari database, dimana fungsi ini akan mengembalikan
+        // livedata berupa arraylist berisi pasienmodel, yang akan di observe secara realtime
+        // pada setiap perubahan di database
         fun getPasienData(): MutableLiveData<ArrayList<PasienModel>> {
             val liveData = MutableLiveData<ArrayList<PasienModel>>()
             val list = ArrayList<PasienModel>()
@@ -190,6 +197,9 @@ class Repository {
             return liveData
         }
 
+        // Fungsi untuk mengambil data dokter dari database, dimana fungsi ini akan mengembalikan
+        // livedata berupa arraylist berisi doktermodel, yang akan di observe secara realtime
+        // pada setiap perubahan di database
         fun getDokterData(): MutableLiveData<ArrayList<DokterModel>> {
             val liveData = MutableLiveData<ArrayList<DokterModel>>()
             val list = ArrayList<DokterModel>()
@@ -236,6 +246,8 @@ class Repository {
             return liveData
         }
 
+        // Menambahkan request appointment oleh pasien kedalam database yang akan mengembalikan
+        // pesan dari database
         fun addAppointment(appointmentModel: AppointmentModel): MutableLiveData<DatabaseMessageModel> {
             val liveData = MutableLiveData<DatabaseMessageModel>()
             appointmentModel.idAppointment = "${reference.push().key}"
@@ -250,6 +262,8 @@ class Repository {
             return liveData
         }
 
+        // Fungsi ini berfungsi untuk mengirim chat / menambahkan chatmodel kedalam database
+        // yang mengembalikan pesan dari database
         fun addChat(appointmentModel: AppointmentModel, chatModel: ChatModel): MutableLiveData<DatabaseMessageModel> {
             val liveData = MutableLiveData<DatabaseMessageModel>()
             chatModel.idchat = "${reference.push().key}"
@@ -264,6 +278,8 @@ class Repository {
             return liveData
         }
 
+        // Fungsi ini berfungsi untuk mengambil chat dari sebuah appointment pada database
+        // yang mengembalikan arraylist berisi pesan atau chatmodel
         fun getChat(appointmentModel: AppointmentModel) : MutableLiveData<ArrayList<ChatModel>> {
             val liveData = MutableLiveData<ArrayList<ChatModel>>()
             val list = ArrayList<ChatModel>()
@@ -284,6 +300,8 @@ class Repository {
             return liveData
         }
 
+        // Mengambil semua appointment milik suatu pasien, yang akan mengembalikan livedata berupa
+        // arraylist berisi appointmentmodel
         fun getAppointmentPasien(pasienModel: PasienModel): MutableLiveData<ArrayList<AppointmentModel>> {
             val liveData = MutableLiveData<ArrayList<AppointmentModel>>()
             val list = ArrayList<AppointmentModel>()
@@ -307,6 +325,8 @@ class Repository {
             return liveData
         }
 
+        // Mengambil semua appointment milik suatu dokter, yang akan mengembalikan livedata berupa
+        // arraylist berisi appointmentmodel
         fun getAppointmentDokter(dokterModel: DokterModel): MutableLiveData<ArrayList<AppointmentModel>> {
             val liveData = MutableLiveData<ArrayList<AppointmentModel>>()
             val list = ArrayList<AppointmentModel>()
@@ -330,6 +350,7 @@ class Repository {
             return liveData
         }
 
+        // Mengambil data pasien yang sedang login
         fun getCurrentUser(context: Context): PasienModel? {
             val gson = Gson()
             val profileJson = context.getSharedPreferences(
@@ -339,6 +360,7 @@ class Repository {
             else null
         }
 
+        // Mengambil data dokter yang sedang login
         fun getCurrentDokter(context: Context): DokterModel? {
             val gson = Gson()
             val profileJson = context.getSharedPreferences(

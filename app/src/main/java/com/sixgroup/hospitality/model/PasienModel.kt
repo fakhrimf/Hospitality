@@ -31,10 +31,11 @@ data class PasienModel(
     override var foto: String? = "",
 ) : UserModel() {
 
+    // Fungsi untuk login dengan akun pasien, yang mengembalikan livedata berupa boolean
+    // livedata kemudian akan di observe untuk mengecek apabila kombinasi email dan password benar
+    // jika benar, maka view akan berlanjut ke activity home
     override fun login(
-        context: Context,
-        lifecycleOwner: LifecycleOwner,
-        remember: Boolean
+        context: Context, lifecycleOwner: LifecycleOwner, remember: Boolean
     ): MutableLiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         var check = false
@@ -51,6 +52,9 @@ data class PasienModel(
         return liveData
     }
 
+    // Fungsi register profil pasien, yang akan mengembalikan live data berupa pesan dari database
+    // dimana data tersebut akan dicek apakah success atau tidak, jika success, maka akan login
+    // dan akan berlanjut ke activity home, jika tidak akan menampilkan error dari database
     fun registerProfile(context: Context, path: Uri?): MutableLiveData<DatabaseMessageModel> {
         val liveData = MutableLiveData<DatabaseMessageModel>()
         idUser = "${reference.push().key}"
@@ -118,6 +122,9 @@ data class PasienModel(
         return liveData
     }
 
+    // Fungsi edit profil pasien, yang akan mengembalikan live data berupa pesan dari database
+    // dimana data tersebut akan dicek apakah success atau tidak, jika success, maka profil pasien
+    // akan diubah sesuai data yang diubah, fungsi ini juga bisa digunakan sebagai fungsi ganti password
     fun editProfile(
         nama: String? = this.nama,
         noHP: String? = this.noHP,
